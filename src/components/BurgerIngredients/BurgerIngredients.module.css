@@ -1,0 +1,54 @@
+.section {
+    min-height:912px;
+    flex-direction: column;
+    display: flex;
+    gap: 10px;
+    padding-top: 10px;
+  }
+
+.nav {
+    display: flex;
+    margin-inline: auto;
+    padding-bottom: 40px;
+    padding-top: 20px;
+  }
+  
+.cardPanel {
+    display: grid;
+    padding-left: 16px;
+    grid-template-columns:  repeat(2, 1fr);
+    grid-column-gap: 24px;
+    grid-row-gap: 48px;
+    max-width: 600px;
+    max-height: 688px;
+    flex-direction: row;
+    overflow:scroll;
+    overflow-x:hidden;
+}
+  
+.cardCounter {
+    position: absolute;
+    top: 0px;
+    right: 4px;
+    width: 32px;
+    height: 32px;
+    background-color: #4C4CFF;
+    border-radius:100px; 
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+.cardContainer{
+    position: relative;
+    max-width: 272px;
+    max-height: 208px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+.cardPrice{
+    display: inline-block;
+    max-width: fit-content;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}

@@ -7,6 +7,21 @@
   pointer-events: none;
 }
 
+.App-body {
+  width: 1280px;
+  flex-direction: row;
+  gap: 48px;
+  margin:auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  vertical-align: middle;
+}
+
+.App-bodypart {
+  border-color: #4C4CFF;
+  border: 2px;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
