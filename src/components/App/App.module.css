@@ -1,0 +1,19 @@
+.App {
+  text-align: center;
+}
+
+.body {
+  width: 1280px;
+  flex-direction: row;
+  gap: 48px;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  vertical-align: middle;
+}
+
+.bodypart {
+  border-color: #4c4cff;
+  border: 2px;
+}

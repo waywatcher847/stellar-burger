@@ -1,32 +1,32 @@
 .section {
-    min-height:912px;
-    width: 600px;
-    flex-direction: column;
-    display: flex;
-    gap: 10px;
-    padding-top: 100px;
+  min-height: 912px;
+  width: 600px;
+  flex-direction: column;
+  display: flex;
+  gap: 10px;
+  padding-top: 100px;
 }
 
 .burgerWrapper {
-    display: flex;
-    flex-direction: column;
-    padding-left: 16px;
-    padding-right: 16px;
+  display: flex;
+  flex-direction: column;
+  padding-left: 16px;
+  padding-right: 16px;
 }
-.burgerStack{
-    width: 568px;
-    height: 600px;
-    overflow: scroll;
-    overflow-x:hidden;
+.burgerStack {
+  width: 568px;
+  height: 600px;
+  overflow: scroll;
+  overflow-x: hidden;
 }
-.Footer{
-    display: flex;
-    float: right;
-    flex-direction: row;
-    justify-content: right;
+.Footer {
+  display: flex;
+  float: right;
+  flex-direction: row;
+  justify-content: right;
 }
-  
-.Price{
+
+.Price {
   justify-content: center;
   text-align: center;
   vertical-align: middle;
