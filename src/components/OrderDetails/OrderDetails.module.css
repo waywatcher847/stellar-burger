@@ -1,0 +1,18 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.iconBox {
+  display: block;
+  width: 100px;
+  height: 100px;
+  background-color: #15155e;
+  border-radius: 100px;
+  align-items: center;
+}
+.icon {
+  width: 100px;
+  height: 100px;
+}

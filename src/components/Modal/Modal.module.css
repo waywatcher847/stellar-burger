@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background);
+  padding: 5em;
+  border-radius: var(--common-border-radius);
+  position: relative;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+.exitButton {
+  position: absolute;
+  top: 5%;
+  left: 80%;
+  width: fit-content;
+}

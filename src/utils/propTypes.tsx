@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface Ingredient {
   _id: string;
   name: string;
@@ -12,7 +14,7 @@ export interface Ingredient {
   image_large: string;
   __v: number;
 }
-export interface IngredientTab extends Array<Ingredient> {}
+export interface IngredientList extends Array<Ingredient> {}
 
 export interface ingredientCardProps {
   idx: number;
@@ -30,8 +32,45 @@ export interface IdList extends Array<string> {}
 
 export interface BurgerStackProps {
   idList: IdList;
-  itemList: IngredientTab;
+  itemList: IngredientList;
 }
 export interface IngredientPanelProps {
   currentTab: string;
+  data: IngredientList;
+}
+export interface ModalOverlayProps {
+  open?: boolean;
+  title?: string;
+  children?: ReactNode;
+  onClose: (e: any) => void;
+}
+export interface IngredientDetailsProps {
+  ingredient: Ingredient;
+}
+
+export interface OrderDetailsProps {
+  orderID: number;
+}
+export interface requestDataProps {
+  url: string;
+  options: () => RequestInit;
+}
+
+export interface WithFetchProps {
+  url: string;
+}
+export interface ExpectedStructure {
+  success: boolean;
+  data: IngredientList;
+}
+export interface FetchedData {
+  fetchedData: ExpectedStructure | null;
+  loading: boolean;
+  error: string | null;
+}
+export interface BurgerConstructorProps {
+  data: IngredientList;
+}
+export interface BurgerIngredientProps {
+  data: IngredientList;
 }

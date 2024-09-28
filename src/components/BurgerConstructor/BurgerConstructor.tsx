@@ -1,12 +1,15 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import burgerConstructorStyles from "./BurgerConstructor.module.css";
-import { plugData } from "../../utils/data";
-import { Stack } from "../../utils/burgerStack";
+// import { plugData } from "../../utils/data";
+// import { plugStack } from "../../utils/burgerStack";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Ingredient } from "../../utils/propTypes";
+import { Modal } from "../Modal/Modal";
+import { OrderDetails } from "../OrderDetails/OrderDetails";
 import { BurgerStackProps } from "../../utils/propTypes";
+import { BurgerConstructorProps } from "../../utils/propTypes";
+import { IdList } from "../../utils/propTypes";
 
 export const BurgerStack = (props: BurgerStackProps) => {
   const { idList, itemList } = props;
@@ -36,16 +39,23 @@ export const BurgerStack = (props: BurgerStackProps) => {
     </>
   );
 };
-export const BurgerConstructor = () => {
-  const topBunInfo = plugData.find(
-    (element) => element._id === "60666c42cc7b410027a1a9b1",
+export const BurgerConstructor = (props: BurgerConstructorProps) => {
+  const { data } = props;
+
+  const meatStack: IdList = data
+    .filter((item) => item.type === "main")
+    .map((item) => item._id);
+
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+
+  const topBunInfo = data.find(
+    (element) => element.name === "Краторная булка N-200i",
   );
-  const botBunInfo = plugData.find(
-    (element) => element._id === "60666c42cc7b410027a1a9b1",
+  const botBunInfo = data.find(
+    (element) => element.name === "Краторная булка N-200i",
   );
   if (topBunInfo === undefined || botBunInfo === undefined) {
-    console.error(`Неизвестный ингредиент с ID: 60666c42cc7b410027a1a9b1`);
-    return null;
+    throw new Error(`Неизвестный ингредиент "Краторная булка N-200i"`);
   }
 
   return (
@@ -61,7 +71,7 @@ export const BurgerConstructor = () => {
           />
         </div>
         <div className={burgerConstructorStyles.burgerStack}>
-          <BurgerStack idList={Stack} itemList={plugData} />
+          <BurgerStack idList={meatStack} itemList={data} />
         </div>
         <div className="pt-4">
           <ConstructorElement
@@ -75,11 +85,30 @@ export const BurgerConstructor = () => {
       </div>
       <div className={burgerConstructorStyles.Footer}>
         <div className={burgerConstructorStyles.Price}>
-          <p className="text text_type_digits-medium">890</p>
-          <CurrencyIcon className="pl-4 pr-4" type="primary" />
+          <p className="text text_type_digits-medium pr-4">12345</p>
+          <CurrencyIcon
+            className={burgerConstructorStyles.Icon}
+            type="primary"
+          />
         </div>
-        <Button htmlType="button" type="primary" size="medium">
+        <Button
+          htmlType="button"
+          type="primary"
+          size="medium"
+          onClick={() => setIsModalOpen(true)}
+        >
           Оформить заказ
+          {isModalOpen && (
+            <Modal
+              open={isModalOpen}
+              onClose={(e) => {
+                e.stopPropagation();
+                setIsModalOpen(false);
+              }}
+            >
+              <OrderDetails orderID={12345} />
+            </Modal>
+          )}
         </Button>
       </div>
     </section>

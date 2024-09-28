@@ -20,10 +20,13 @@
   grid-column-gap: 24px;
   grid-row-gap: 48px;
   max-width: 600px;
-  max-height: 688px;
+  max-height: 700px;
   flex-direction: row;
   overflow: scroll;
   overflow-x: hidden;
+  scrollbar-color: #2f2f37 #8585ad;
+  scrollbar-width: thin;
+  overflow-y: auto;
 }
 
 .cardCounter {
@@ -40,6 +43,8 @@
 }
 .cardContainer {
   position: relative;
+  display: flex;
+  flex-direction: column;
   max-width: 275px;
   height: 230px;
   text-align: center;
@@ -47,8 +52,14 @@
   align-items: center;
 }
 .cardPrice {
-  display: inline-block;
+  display: flex;
+  flex-direction: row;
   max-width: fit-content;
   padding-top: 4px;
   padding-bottom: 4px;
+}
+
+.Icon {
+  height: 40px;
+  width: 40px;
 }

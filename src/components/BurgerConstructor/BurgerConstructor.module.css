@@ -15,9 +15,12 @@
 }
 .burgerStack {
   width: 568px;
-  height: 600px;
+  height: 400px;
   overflow: scroll;
+  scrollbar-color: #2f2f37 #8585ad;
+  scrollbar-width: thin;
   overflow-x: hidden;
+  overflow-y: auto;
 }
 .Footer {
   display: flex;
@@ -27,7 +30,15 @@
 }
 
 .Price {
-  justify-content: center;
+  padding-top: 8px;
+  padding-right: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   text-align: center;
   vertical-align: middle;
+}
+.Icon {
+  height: 40px;
+  width: 40px;
 }
