@@ -1,5 +1,5 @@
 import styles from "./IngredientDetails.module.css";
-import { ingredientDetailsProps } from "../../Utils/Types";
+import { ingredientDetailsProps } from "../../Utils1/Types";
 
 export const IngredientDetails = (props: ingredientDetailsProps) => {
   const { ingredient } = props;

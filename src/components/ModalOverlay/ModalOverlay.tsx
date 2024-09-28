@@ -1,5 +1,5 @@
 import React, { MouseEvent } from "react";
-import { modalOverlayProps } from "../../Utils/Types";
+import { modalOverlayProps } from "../../Utils1/Types";
 import styles from "./ModalOverlay.module.css";
 
 export const ModalOverlay = (props: modalOverlayProps) => {

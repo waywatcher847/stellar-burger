@@ -7,9 +7,9 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Modal } from "../Modal/Modal";
 import { OrderDetails } from "../OrderDetails/OrderDetails";
-import { burgerStackProps } from "../../Utils/Types";
-import { burgerConstructorProps } from "../../Utils/Types";
-import { idList } from "../../Utils/Types";
+import { burgerStackProps } from "../../Utils1/Types";
+import { burgerConstructorProps } from "../../Utils1/Types";
+import { idList } from "../../Utils1/Types";
 
 export const BurgerStack = (props: burgerStackProps) => {
   const { idList, itemList } = props;

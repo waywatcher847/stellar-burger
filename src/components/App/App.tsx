@@ -1,9 +1,9 @@
-import { fetchData } from "../../Utils/Types";
+import { fetchData } from "../../Utils1/Types";
 import styles from "./App.module.css";
 import { Appheader } from "../AppHeader/AppHeader";
 import { BurgerConstructor } from "../BurgerConstructor/BurgerConstructor";
 import { Burgeringredients } from "../BurgerIngredients/BurgerIngredients";
-import { getIngredientList } from "../../Utils/FetchHoc1";
+import { getIngredientList } from "../../Utils1/FetchHoc1";
 
 function app(props: fetchData) {
   const { fetchedData, loading, error } = props;

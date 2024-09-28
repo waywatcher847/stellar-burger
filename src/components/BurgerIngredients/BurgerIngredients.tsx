@@ -8,10 +8,10 @@ import {
   ingredientCardProps,
   ingredientPanelProps,
   burgerTabProps,
-} from "../../Utils/Types";
+} from "../../Utils1/Types";
 import { Modal } from "../Modal/Modal";
 import { IngredientDetails } from "../IngredientDetails/IngredientDetails";
-import { burgeringredientProps } from "../../Utils/Types";
+import { burgeringredientProps } from "../../Utils1/Types";
 
 const IngredientCard = (props: ingredientCardProps) => {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
