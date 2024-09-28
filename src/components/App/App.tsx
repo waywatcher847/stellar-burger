@@ -3,7 +3,7 @@ import styles from "./App.module.css";
 import { Appheader } from "../AppHeader/AppHeader";
 import { BurgerConstructor } from "../BurgerConstructor/BurgerConstructor";
 import { Burgeringredients } from "../BurgerIngredients/BurgerIngredients";
-import { getIngredientList } from "../../Utils/FetchHoc";
+import { getIngredientList } from "../../Utils/FetchHoc1";
 
 function app(props: fetchData) {
   const { fetchedData, loading, error } = props;
