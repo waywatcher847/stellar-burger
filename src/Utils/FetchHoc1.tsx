@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { expectedStructure } from "./Types";
 import { getIngredientListProps } from "./Types";
 import { ingredientURL } from "./Constants";
-
+ 
 export const getIngredientList = (
   WrappedComponent: React.ComponentType<{
     fetchedData: expectedStructure | null;

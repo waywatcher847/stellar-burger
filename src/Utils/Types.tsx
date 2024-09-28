@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-
+ 
 export interface ingredient {
   _id: string;
   name: string;

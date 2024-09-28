@@ -1,4 +1,4 @@
-import { ingredientList } from "./Types";
+import { ingredientList } from "./Types"; 
 
 export const plugData: ingredientList = [
   {

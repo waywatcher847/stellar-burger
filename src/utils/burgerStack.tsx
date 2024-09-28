@@ -1,4 +1,4 @@
-import { idList } from "./Types";
+import { idList } from "./Types"; 
 
 export const Stack: idList = [
   "60666c42cc7b410027a1a9b5",
