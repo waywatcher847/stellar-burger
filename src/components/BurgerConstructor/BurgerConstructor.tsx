@@ -15,7 +15,6 @@ export const BurgerStack = (props: burgerStackProps) => {
   const { idList, itemList } = props;
   return (
     <>
-      (
       {idList.map((ingredientId, i) => {
         const itemInfo = itemList.find(
           (element) => element._id === ingredientId,
@@ -37,7 +36,6 @@ export const BurgerStack = (props: burgerStackProps) => {
           </div>
         );
       })}
-      )
     </>
   );
 };
