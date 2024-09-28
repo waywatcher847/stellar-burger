@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
-import { ModalOverlayProps } from "../../utils/propTypes";
+import { modalOverlayProps } from "../../Utils/Types";
 import { ModalOverlay } from "../ModalOverlay/ModalOverlay";
 import styles from "./Modal.module.css";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
-export const Modal = (props: ModalOverlayProps) => {
+export const Modal = (props: modalOverlayProps) => {
   const { open, title, children, onClose } = props;
   const [exitIsHovered, setExitIsHovered] = useState(false);
 

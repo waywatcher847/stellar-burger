@@ -1,11 +1,11 @@
-import { FetchedData } from "../../utils/propTypes";
-import Appstyles from "./App.module.css";
+import { fetchData } from "../../Utils/Types";
+import styles from "./App.module.css";
 import { Appheader } from "../AppHeader/AppHeader";
 import { BurgerConstructor } from "../BurgerConstructor/BurgerConstructor";
-import { BurgerIngredients } from "../BurgerIngredients/BurgerIngredients";
-import { withFetch } from "../../utils/fetchHoc";
+import { Burgeringredients } from "../BurgerIngredients/BurgerIngredients";
+import { getIngredientList } from "../../Utils/FetchHoc";
 
-function App(props: FetchedData) {
+function app(props: fetchData) {
   const { fetchedData, loading, error } = props;
 
   if (loading) return <div>Загрузка...</div>;
@@ -15,12 +15,12 @@ function App(props: FetchedData) {
   return (
     <>
       <Appheader />
-      <main className={Appstyles.body}>
-        <BurgerIngredients data={fetchedData.data} />
+      <main className={styles.body}>
+        <Burgeringredients data={fetchedData.data} />
         <BurgerConstructor data={fetchedData.data} />
       </main>
     </>
   );
 }
 
-export default withFetch(App);
+export default getIngredientList(app);

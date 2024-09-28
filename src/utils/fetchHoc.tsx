@@ -1,31 +1,31 @@
 import React, { useState, useEffect } from "react";
 
-import { ExpectedStructure } from "./propTypes";
-import { WithFetchProps } from "./propTypes";
+import { expectedStructure } from "./Types";
+import { getIngredientListProps } from "./Types";
 import { ingredientURL } from "./Constants";
 
-export const withFetch = (
+export const getIngredientList = (
   WrappedComponent: React.ComponentType<{
-    fetchedData: ExpectedStructure | null;
+    fetchedData: expectedStructure | null;
     loading: boolean;
     error: string | null;
   }>,
 ) => {
-  return (props: WithFetchProps) => {
-    const [data, setData] = useState<ExpectedStructure | null>(null);
+  return (props: getIngredientListProps) => {
+    const [data, setData] = useState<expectedStructure | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
       const fetchData = async () => {
-        setLoading(false);
+        setLoading(true);
         setError(null);
         try {
           const response = await fetch(ingredientURL);
           if (!response.ok) {
-            throw new Error("ответ:не ок");
+            setError("ошибка в запросе данных");
           }
-          const dataThatWasPromised: ExpectedStructure = await response.json();
+          const dataThatWasPromised: expectedStructure = await response.json();
           setData(dataThatWasPromised);
           setLoading(false);
         } catch (err) {
@@ -38,7 +38,7 @@ export const withFetch = (
       };
 
       fetchData();
-    });
+    }, [ingredientURL]);
 
     return (
       <WrappedComponent fetchedData={data} loading={loading} error={error} />

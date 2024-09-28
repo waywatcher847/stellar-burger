@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import headerstyles from "./AppHeader.module.css";
+import styles from "./AppHeader.module.css";
 import {
   BurgerIcon,
   ListIcon,
@@ -10,32 +10,32 @@ import { Logo } from "@ya.praktikum/react-developer-burger-ui-components";
 
 export const Appheader = () => {
   return (
-    <header className={headerstyles.header}>
-      <nav className={headerstyles.menuWrapper}>
-        <u className={headerstyles.menu}>
-          <li className={headerstyles.menuItem}>
-            <div className={headerstyles.button}>
+    <header className={styles.header}>
+      <nav className={styles.menuWrapper}>
+        <u className={styles.menu}>
+          <li className={styles.menuItem}>
+            <div className={styles.button}>
               <BurgerIcon type="secondary" />
-              <text className="text text_type_main-default text_color_inactive">
+              <p className="text text_type_main-default text_color_inactive">
                 Конструктор
-              </text>
+              </p>
             </div>
-            <div className={headerstyles.button}>
+            <div className={styles.button}>
               <ListIcon type="secondary" />
-              <text className="text text_type_main-default text_color_inactive">
+              <p className="text text_type_main-default text_color_inactive">
                 Лента заказов
-              </text>
+              </p>
             </div>
           </li>
-          <li className={headerstyles.logo}>
+          <li className={styles.logo}>
             <Logo />
           </li>
           <li>
-            <div className={headerstyles.button}>
+            <div className={styles.button}>
               <ProfileIcon type="secondary" />
-              <text className="text text_type_main-default text_color_inactive">
+              <p className="text text_type_main-default text_color_inactive">
                 Личный кабинет
-              </text>
+              </p>
             </div>
           </li>
         </u>

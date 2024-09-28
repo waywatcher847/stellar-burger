@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import burgerConstructorStyles from "./BurgerConstructor.module.css";
+import styles from "./BurgerConstructor.module.css";
 // import { plugData } from "../../utils/data";
 // import { plugStack } from "../../utils/burgerStack";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -7,11 +7,11 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Modal } from "../Modal/Modal";
 import { OrderDetails } from "../OrderDetails/OrderDetails";
-import { BurgerStackProps } from "../../utils/propTypes";
-import { BurgerConstructorProps } from "../../utils/propTypes";
-import { IdList } from "../../utils/propTypes";
+import { burgerStackProps } from "../../Utils/Types";
+import { burgerConstructorProps } from "../../Utils/Types";
+import { idList } from "../../Utils/Types";
 
-export const BurgerStack = (props: BurgerStackProps) => {
+export const BurgerStack = (props: burgerStackProps) => {
   const { idList, itemList } = props;
   return (
     <>
@@ -39,10 +39,10 @@ export const BurgerStack = (props: BurgerStackProps) => {
     </>
   );
 };
-export const BurgerConstructor = (props: BurgerConstructorProps) => {
+export const BurgerConstructor = (props: burgerConstructorProps) => {
   const { data } = props;
 
-  const meatStack: IdList = data
+  const meatStack: idList = data
     .filter((item) => item.type === "main")
     .map((item) => item._id);
 
@@ -59,8 +59,8 @@ export const BurgerConstructor = (props: BurgerConstructorProps) => {
   }
 
   return (
-    <section className={burgerConstructorStyles.section}>
-      <div className={burgerConstructorStyles.burgerWrapper}>
+    <section className={styles.section}>
+      <div className={styles.burgerWrapper}>
         <div className="pb-4">
           <ConstructorElement
             type="top"
@@ -70,7 +70,7 @@ export const BurgerConstructor = (props: BurgerConstructorProps) => {
             thumbnail={topBunInfo.image}
           />
         </div>
-        <div className={burgerConstructorStyles.burgerStack}>
+        <div className={styles.burgerStack}>
           <BurgerStack idList={meatStack} itemList={data} />
         </div>
         <div className="pt-4">
@@ -83,13 +83,10 @@ export const BurgerConstructor = (props: BurgerConstructorProps) => {
           />
         </div>
       </div>
-      <div className={burgerConstructorStyles.Footer}>
-        <div className={burgerConstructorStyles.Price}>
+      <div className={styles.Footer}>
+        <div className={styles.Price}>
           <p className="text text_type_digits-medium pr-4">12345</p>
-          <CurrencyIcon
-            className={burgerConstructorStyles.Icon}
-            type="primary"
-          />
+          <CurrencyIcon className={styles.Icon} type="primary" />
         </div>
         <Button
           htmlType="button"

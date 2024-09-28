@@ -1,8 +1,8 @@
 import React, { MouseEvent } from "react";
-import { ModalOverlayProps } from "../../utils/propTypes";
-import modalStyles from "./ModalOverlay.module.css";
+import { modalOverlayProps } from "../../Utils/Types";
+import styles from "./ModalOverlay.module.css";
 
-export const ModalOverlay = (props: ModalOverlayProps) => {
+export const ModalOverlay = (props: modalOverlayProps) => {
   const { title, children, onClose } = props;
 
   function clickHandler(e: MouseEvent<HTMLDivElement>) {
@@ -13,11 +13,7 @@ export const ModalOverlay = (props: ModalOverlayProps) => {
   }
 
   return (
-    <div
-      id="ModalOverlay"
-      className={modalStyles.overlay}
-      onClick={clickHandler}
-    >
+    <div id="ModalOverlay" className={styles.overlay} onClick={clickHandler}>
       {children}
     </div>
   );

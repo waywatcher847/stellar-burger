@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import burgerIngredientsStyles from "./BurgerIngredients.module.css";
+import styles from "./BurgerIngredients.module.css";
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 // import { plugData } from "../../utils/data";
 import {
   ingredientCardProps,
-  IngredientPanelProps,
-  BurgerTabProps,
-} from "../../utils/propTypes";
+  ingredientPanelProps,
+  burgerTabProps,
+} from "../../Utils/Types";
 import { Modal } from "../Modal/Modal";
 import { IngredientDetails } from "../IngredientDetails/IngredientDetails";
-import { BurgerIngredientProps } from "../../utils/propTypes";
+import { burgeringredientProps } from "../../Utils/Types";
 
 const IngredientCard = (props: ingredientCardProps) => {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
@@ -21,18 +21,18 @@ const IngredientCard = (props: ingredientCardProps) => {
     <div
       role="button"
       onClick={() => setIsModalOpen(true)}
-      className={`${burgerIngredientsStyles.cardContainer} scroll`}
+      className={`${styles.cardContainer} scroll`}
       key={idx}
     >
       <Counter count={idx}></Counter>
 
       <img src={itemCard.image} alt={itemCard.name}></img>
-      <div className={burgerIngredientsStyles.cardPrice}>
+      <div className={styles.cardPrice}>
         <p className="text text_type_digits-medium pr-4">{itemCard.price}</p>
-        <CurrencyIcon className={burgerIngredientsStyles.Icon} type="primary" />
+        <CurrencyIcon className={styles.Icon} type="primary" />
       </div>
       <br />
-      <div className={burgerIngredientsStyles.cardPrice}>
+      <div className={styles.cardPrice}>
         <p className="text text_type_main-small">{itemCard.name}</p>
       </div>
       {isModalOpen && (
@@ -51,7 +51,7 @@ const IngredientCard = (props: ingredientCardProps) => {
   );
 };
 
-const IngredientPanel = (props: IngredientPanelProps) => {
+const IngredientPanel = (props: ingredientPanelProps) => {
   const { currentTab, data } = props;
 
   const itemType = (() => {
@@ -71,13 +71,13 @@ const IngredientPanel = (props: IngredientPanelProps) => {
       {data
         .filter((item) => item.type === itemType)
         .map((item, i) => (
-          <IngredientCard idx={i} itemCard={item} />
+          <IngredientCard idx={i} itemCard={item} key={i} />
         ))}
     </>
   );
 };
 
-const BurgerTab = (props: BurgerTabProps) => {
+const BurgerTab = (props: burgerTabProps) => {
   const { tabName, currentTab, clickHandler } = props;
 
   return (
@@ -91,7 +91,7 @@ const BurgerTab = (props: BurgerTabProps) => {
   );
 };
 
-export const BurgerIngredients = (props: BurgerIngredientProps) => {
+export const Burgeringredients = (props: burgeringredientProps) => {
   const { data } = props;
 
   const [tab, setTab] = useState<string>("Булки");
@@ -100,9 +100,9 @@ export const BurgerIngredients = (props: BurgerIngredientProps) => {
   };
 
   return (
-    <section className={burgerIngredientsStyles.section}>
+    <section className={styles.section}>
       <header className="text text_type_main-large">Собери бургер</header>
-      <nav className={burgerIngredientsStyles.nav}>
+      <nav className={styles.nav}>
         <BurgerTab
           tabName="Булки"
           currentTab={tab}
@@ -120,7 +120,7 @@ export const BurgerIngredients = (props: BurgerIngredientProps) => {
         />
       </nav>
       <header className="text_type_main-medium">{tab}</header>
-      <div className={burgerIngredientsStyles.cardPanel}>
+      <div className={styles.cardPanel}>
         <IngredientPanel currentTab={tab} data={data} />
       </div>
     </section>

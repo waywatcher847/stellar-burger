@@ -1,9 +1,8 @@
 import styles from "./OrderDetails.module.css";
 import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { orderDetailsProps } from "../../Utils/Types";
 
-import { OrderDetailsProps } from "../../utils/propTypes";
-
-export const OrderDetails = (props: OrderDetailsProps) => {
+export const OrderDetails = (props: orderDetailsProps) => {
   const { orderID } = props;
 
   return (

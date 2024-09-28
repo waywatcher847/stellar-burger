@@ -1,6 +1,6 @@
-import { IngredientList } from "./propTypes";
+import { ingredientList } from "./Types";
 
-export const plugData: IngredientList = [
+export const plugData: ingredientList = [
   {
     _id: "60666c42cc7b410027a1a9b1",
     name: "Краторная булка N-200i",

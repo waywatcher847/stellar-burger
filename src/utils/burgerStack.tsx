@@ -1,6 +1,6 @@
-import { IdList } from "./propTypes";
+import { idList } from "./Types";
 
-export const Stack: IdList = [
+export const Stack: idList = [
   "60666c42cc7b410027a1a9b5",
   "60666c42cc7b410027a1a9b7",
   "60666c42cc7b410027a1a9b6",
