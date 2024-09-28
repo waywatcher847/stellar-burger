@@ -68,11 +68,13 @@ const IngredientPanel = (props: ingredientPanelProps) => {
   })();
   return (
     <>
+      (
       {data
         .filter((item) => item.type === itemType)
         .map((item, i) => (
           <IngredientCard idx={i} itemCard={item} key={i} />
         ))}
+      )
     </>
   );
 };
