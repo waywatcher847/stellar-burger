@@ -1,0 +1,25 @@
+.text {
+  display: flex;
+  gap: var(--);
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  align-content: center;
+  text-align: center;
+  color: var(--text-inactive-color);
+}
+
+.header {
+  margin-bottom: 0;
+  overflow-wrap: break-word;
+  text-align: center;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  align-content: center;
+}
