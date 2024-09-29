@@ -1,7 +1,7 @@
 import styles from "./IngredientDetails.module.css";
-import { ingredientDetailsProps } from "../../Utils1/Types";
+import { IngredientDetailsProps } from "../../utils/Types";
 
-export const IngredientDetails = (props: ingredientDetailsProps) => {
+export const IngredientDetails = (props: IngredientDetailsProps) => {
   const { ingredient } = props;
 
   return (

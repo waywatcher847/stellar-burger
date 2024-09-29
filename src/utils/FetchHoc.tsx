@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 
-import { expectedStructure } from "./Types";
-import { getIngredientListProps } from "./Types";
+import { ExpectedStructure } from "./Types";
+import { GetIngredientListProps } from "./Types";
 import { ingredientURL } from "./Constants";
- 
-export const getIngredientList = (
+
+export const GetIngredientList = (
   WrappedComponent: React.ComponentType<{
-    fetchedData: expectedStructure | null;
+    fetchedData: ExpectedStructure | null;
     loading: boolean;
     error: string | null;
   }>,
 ) => {
-  return (props: getIngredientListProps) => {
-    const [data, setData] = useState<expectedStructure | null>(null);
+  return (props: GetIngredientListProps) => {
+    const [data, setData] = useState<ExpectedStructure | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -23,11 +23,10 @@ export const getIngredientList = (
         try {
           const response = await fetch(ingredientURL);
           if (!response.ok) {
-            setError("ошибка в запросе данных");
+            return Promise.reject(`Ошибка ${response.status}`);
           }
-          const dataThatWasPromised: expectedStructure = await response.json();
+          const dataThatWasPromised: ExpectedStructure = await response.json();
           setData(dataThatWasPromised);
-          setLoading(false);
         } catch (err) {
           setError(
             err instanceof Error ? err.message : "ошибка в запросе данных",

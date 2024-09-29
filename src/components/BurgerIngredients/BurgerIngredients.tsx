@@ -5,22 +5,24 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 // import { plugData } from "../../utils/data";
 import {
-  ingredientCardProps,
-  ingredientPanelProps,
-  burgerTabProps,
-} from "../../Utils1/Types";
+  IngredientCardProps,
+  IngredientPanelProps,
+  BurgerTabProps,
+} from "../../utils/Types";
 import { Modal } from "../Modal/Modal";
 import { IngredientDetails } from "../IngredientDetails/IngredientDetails";
-import { burgeringredientProps } from "../../Utils1/Types";
+import { BurgeringredientProps } from "../../utils/Types";
+import { useModal } from "../../hooks/useModal";
 
-const IngredientCard = (props: ingredientCardProps) => {
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
+const IngredientCard = (props: IngredientCardProps) => {
+  // const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const { isModalOpen, openModal, closeModal } = useModal();
   const { idx, itemCard } = props;
 
   return (
     <div
       role="button"
-      onClick={() => setIsModalOpen(true)}
+      onClick={() => openModal()}
       className={`${styles.cardContainer} scroll`}
       key={idx}
     >
@@ -40,7 +42,7 @@ const IngredientCard = (props: ingredientCardProps) => {
           open={isModalOpen}
           onClose={(e) => {
             e.stopPropagation();
-            setIsModalOpen(false);
+            closeModal();
           }}
           title={"Детали ингридиента"}
         >
@@ -51,7 +53,7 @@ const IngredientCard = (props: ingredientCardProps) => {
   );
 };
 
-const IngredientPanel = (props: ingredientPanelProps) => {
+const IngredientPanel = (props: IngredientPanelProps) => {
   const { currentTab, data } = props;
 
   const itemType = (() => {
@@ -71,13 +73,13 @@ const IngredientPanel = (props: ingredientPanelProps) => {
       {data
         .filter((item) => item.type === itemType)
         .map((item, i) => (
-          <IngredientCard idx={i} itemCard={item} key={i} />
+          <IngredientCard idx={i} itemCard={item} key={item._id} />
         ))}
     </>
   );
 };
 
-const BurgerTab = (props: burgerTabProps) => {
+const BurgerTab = (props: BurgerTabProps) => {
   const { tabName, currentTab, clickHandler } = props;
 
   return (
@@ -91,7 +93,7 @@ const BurgerTab = (props: burgerTabProps) => {
   );
 };
 
-export const Burgeringredients = (props: burgeringredientProps) => {
+export const Burgeringredients = (props: BurgeringredientProps) => {
   const { data } = props;
 
   const [tab, setTab] = useState<string>("Булки");

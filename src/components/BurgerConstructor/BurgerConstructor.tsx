@@ -5,13 +5,15 @@ import styles from "./BurgerConstructor.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Modal } from "../Modal/Modal";
 import { OrderDetails } from "../OrderDetails/OrderDetails";
-import { burgerStackProps } from "../../Utils1/Types";
-import { burgerConstructorProps } from "../../Utils1/Types";
-import { idList } from "../../Utils1/Types";
+import { BurgerStackProps } from "../../utils/Types";
+import { BurgerConstructorProps } from "../../utils/Types";
+import { IdList } from "../../utils/Types";
+import { useModal } from "../../hooks/useModal";
 
-export const BurgerStack = (props: burgerStackProps) => {
+export const BurgerStack = (props: BurgerStackProps) => {
   const { idList, itemList } = props;
   return (
     <>
@@ -26,7 +28,10 @@ export const BurgerStack = (props: burgerStackProps) => {
         }
 
         return (
-          <div className="pb-4" key={ingredientId}>
+          <div className={styles.burgerLine} key={ingredientId}>
+            <div className={styles.dragIcon} >
+              <DragIcon type="primary" />
+            </div>
             <ConstructorElement
               isLocked={false}
               text={itemInfo.name}
@@ -39,14 +44,14 @@ export const BurgerStack = (props: burgerStackProps) => {
     </>
   );
 };
-export const BurgerConstructor = (props: burgerConstructorProps) => {
+export const BurgerConstructor = (props: BurgerConstructorProps) => {
   const { data } = props;
 
-  const meatStack: idList = data
+  const meatStack: IdList = data
     .filter((item) => item.type === "main")
     .map((item) => item._id);
-
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const { isModalOpen, openModal, closeModal } = useModal();
+  // const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   const topBunInfo = data.find(
     (element) => element.name === "Краторная булка N-200i",
@@ -61,11 +66,12 @@ export const BurgerConstructor = (props: burgerConstructorProps) => {
   return (
     <section className={styles.section}>
       <div className={styles.burgerWrapper}>
-        <div className="pb-4">
+        <div className={styles.burgerLine}>
+        <div className={styles.dragIcon} />
           <ConstructorElement
             type="top"
             isLocked={true}
-            text={topBunInfo.name}
+            text={topBunInfo.name + "\n(верх)"}
             price={topBunInfo.price}
             thumbnail={topBunInfo.image}
           />
@@ -73,11 +79,12 @@ export const BurgerConstructor = (props: burgerConstructorProps) => {
         <div className={styles.burgerStack}>
           <BurgerStack idList={meatStack} itemList={data} />
         </div>
-        <div className="pt-4">
+        <div className={styles.burgerLine}>
+          <div className={styles.dragIcon} />
           <ConstructorElement
             type="bottom"
             isLocked={true}
-            text={botBunInfo.name}
+            text={botBunInfo.name + "\n(низ)"}
             price={botBunInfo.price}
             thumbnail={botBunInfo.image}
           />
@@ -92,7 +99,7 @@ export const BurgerConstructor = (props: burgerConstructorProps) => {
           htmlType="button"
           type="primary"
           size="medium"
-          onClick={() => setIsModalOpen(true)}
+          onClick={() => openModal()}
         >
           Оформить заказ
           {isModalOpen && (
@@ -100,7 +107,7 @@ export const BurgerConstructor = (props: burgerConstructorProps) => {
               open={isModalOpen}
               onClose={(e) => {
                 e.stopPropagation();
-                setIsModalOpen(false);
+                closeModal();
               }}
             >
               <OrderDetails orderID={12345} />
