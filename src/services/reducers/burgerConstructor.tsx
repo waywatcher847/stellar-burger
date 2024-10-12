@@ -6,6 +6,7 @@ import {
     MOVE_INGREDIENT
 } from '../actions/burgerConstructor';
 import { СonstructorState } from "../../utils/Types";
+import { Ingredient } from "../../utils/Types";
 
 import uniqid from 'uniqid';
 

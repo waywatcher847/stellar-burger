@@ -16,14 +16,16 @@ import { Ingredient } from "../../utils/Types";
 import { plugData } from "../../utils/data";
 import { getOrderDetails } from "../../services/actions/order";
 import { AnyAction, Dispatch } from 'redux'; 
+import { AppDispatch } from '../../hooks/useAppDispatch'; 
+// не typestript потому что  dispatch(getOrderDetails(orderIds)) выдает ошибку типа; 
 
 export const BurgerConstructor = () => {
-  const { bun, ingredients, totalPrice } = useSelector((store:rootReducerType) => store.burgerConstrucor);
+  const { bun, ingredients, totalPrice } = useSelector((store) => store.burgerConstrucor);
   const { isModalOpen, openModal, closeModal } = useModal();
-  const orderDetails = useSelector((store:rootReducerType) => store.orderDetails)
+  const orderDetails = useSelector((store) => store.orderDetails)
   const plugBunInfo = plugData[0];
   const bunInfo = !bun?plugBunInfo:bun;
-  const meatStack: ItemStack = ingredients
+  const meatStack = ingredients
     .filter((ingredient) => ingredient?.item?.type === "main" || ingredient?.item?.type === "sauce")
     .map((ingredient) => ingredient);
 
@@ -31,7 +33,7 @@ export const BurgerConstructor = () => {
 
   const [, dropTarget] = useDrop({
       accept: 'ingredient',
-      drop: ({itemCard}:{itemCard: Ingredient}) => {
+      drop: ({itemCard}) => {
           if (itemCard.type === 'bun') {
               dispatch({ type: ADD_BUN, itemCard })
           } else {
@@ -47,8 +49,7 @@ export const BurgerConstructor = () => {
         return
       }
       const orderIds = [bun._id, ...ingredients.map(item => item.item._id), bun._id];
-
-          dispatch( getOrderDetails( orderIds ) );
+      ( dispatch(getOrderDetails(orderIds)) ); 
           openModal()
       }
 

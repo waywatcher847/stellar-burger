@@ -25,9 +25,9 @@ export const orderReducer = (state = initialState, action:AnyAction ) => {
             return {
                 ...state,
                 isLoading: false,
-                name: action.res?.name ?? null,
+                name: action.payload.name ?? null,
                 order: {
-                    number: action.res?.order.number,
+                    number: action.payload.order.number,
                 },
                 success: true,
             };
