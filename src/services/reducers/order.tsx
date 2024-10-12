@@ -18,13 +18,13 @@ export const orderReducer = (state = initialState, action:AnyAction ) => {
         case _REQUEST_ORDER: {
             return {
                 ...state,
-                isLoading: true,
+                loading: true,
             };
         }
         case _SUCCESS_ORDER: {
             return {
                 ...state,
-                isLoading: false,
+                loading: false,
                 name: action.payload.name ?? null,
                 order: {
                     number: action.payload.order.number,

@@ -5,18 +5,13 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Modal } from "../Modal/Modal";
 import { OrderDetails } from "../OrderDetails/OrderDetails";
-import { ItemStack } from "../../utils/Types";
 import { useModal } from "../../hooks/useModal";
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from "react-dnd";
 import { BurgerStack } from './BurgerStack'
 import { ADD_INGREDIENT, ADD_BUN, SET_TOTALPRICE } from '../../services/actions/burgerConstructor'
-import { rootReducerType } from "../../utils/Types";
-import { Ingredient } from "../../utils/Types";
 import { plugData } from "../../utils/data";
 import { getOrderDetails } from "../../services/actions/order";
-import { AnyAction, Dispatch } from 'redux'; 
-import { AppDispatch } from '../../hooks/useAppDispatch'; 
 // не typestript потому что  dispatch(getOrderDetails(orderIds)) выдает ошибку типа; 
 
 export const BurgerConstructor = () => {
