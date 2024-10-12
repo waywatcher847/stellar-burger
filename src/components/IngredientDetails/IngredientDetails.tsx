@@ -1,33 +1,36 @@
 import styles from "./IngredientDetails.module.css";
-import { IngredientDetailsProps } from "../../utils/Types";
+import { rootReducerType } from "../../utils/Types";
+import { useSelector, useDispatch } from 'react-redux';
 
-export const IngredientDetails = (props: IngredientDetailsProps) => {
-  const { ingredient } = props;
-
+export const IngredientDetails = ( ) => {
+  
+  const dispatch: any = useDispatch();
+  const { currentIngridient } = useSelector((store:rootReducerType) => store.currentIngridient);
+  
   return (
     <div className={styles.wrapper}>
-      <img src={ingredient.image_large} alt={ingredient.name} />
+      <img src={currentIngridient.image_large} alt={currentIngridient.name} />
       <div className={styles.header}>
-        <p className="text_type_main-medium">{ingredient.name}</p>
+        <p className="text_type_main-medium">{currentIngridient.name}</p>
       </div>
       <div className={styles.text}>
         <p className="text text_type_main-small pr-4">
           Калории,ккал
           <br />
-          {ingredient.calories}
+          {currentIngridient.calories}
         </p>
         <p className="text text_type_main-small pr-4">
           Белки,г
           <br />
-          {ingredient.proteins}
+          {currentIngridient.proteins}
         </p>
         <p className="text text_type_main-small pr-4">
           Жиры, г<br />
-          {ingredient.fat}
+          {currentIngridient.fat}
         </p>
         <p className="text text_type_main-small">
           Углеводы, г<br />
-          {ingredient.carbohydrates}
+          {currentIngridient.carbohydrates}
         </p>
       </div>
     </div>

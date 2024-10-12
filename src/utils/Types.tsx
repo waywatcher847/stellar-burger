@@ -16,12 +16,14 @@ export interface Ingredient {
 }
 export interface IngredientList extends Array<Ingredient> {}
 
+
 export interface IngredientCardProps {
   idx: number;
   itemCard: Ingredient;
 }
 export interface IngredientPanelProps {
   currentTab: string;
+  data: IngredientList;
 }
 export interface BurgerTabProps {
   tabName: string;
@@ -31,8 +33,11 @@ export interface BurgerTabProps {
 export interface IdList extends Array<string> {}
 
 export interface BurgerStackProps {
-  idList: IdList;
-  itemList: IngredientList;
+  itemList: ItemStack;
+}
+export interface StackItemProps {
+  ingredient: UniqueItem;
+  idx: number;
 }
 export interface IngredientPanelProps {
   currentTab: string;
@@ -49,7 +54,7 @@ export interface IngredientDetailsProps {
 }
 
 export interface OrderDetailsProps {
-  orderID: number;
+  orderResponse:  OrderDetailsType ;
 }
 export interface RequestDataProps {
   url: string;
@@ -73,4 +78,47 @@ export interface BurgerConstructorProps {
 }
 export interface BurgeringredientProps {
   data: IngredientList;
+}
+export interface OrderResponseStructure {
+  name: string;
+  order:{number: number};
+  success: boolean;
+} 
+
+export  interface IngredientsType {
+  loading: boolean,
+  success: boolean,
+  error: boolean,
+  ingridients: ExpectedStructure,
+};
+export  interface  CurrentIngredientType {
+  currentIngridient: Ingredient,
+};
+
+export interface  UniqueItem {
+  uniqid: number,
+  item: Ingredient,
+}
+export interface  ItemStack extends Array<UniqueItem> { }
+
+export interface  СonstructorState {
+  bun: Ingredient | null;
+  ingredients: ItemStack | [];
+  totalPrice: number;
+}
+
+export  interface  OrderDetailsType {
+  loading: boolean,
+  name: string,
+  order: {
+      number: number,
+  },
+  success: boolean,
+};
+
+export  interface rootReducerType{
+  currentIngridient:CurrentIngredientType;
+  ingridients:IngredientsType;
+  burgerConstrucor:СonstructorState;
+  orderDetails:OrderDetailsType;
 }
