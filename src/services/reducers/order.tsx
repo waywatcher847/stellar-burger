@@ -1,5 +1,10 @@
 import { AnyAction } from "redux";
-import { _REQUEST_ORDER, _SUCCESS_ORDER, _ERROR_ORDER } from "../actions/order";
+import {
+  _REQUEST_ORDER,
+  _SUCCESS_ORDER,
+  _ERROR_ORDER,
+  DROP_ORDER,
+} from "../actions/order";
 
 const initialState = {
   loading: false,
@@ -30,6 +35,17 @@ export const orderReducer = (state = initialState, action: AnyAction) => {
       };
     }
     case _ERROR_ORDER: {
+      return {
+        ...state,
+        name: null,
+        order: {
+          number: null,
+        },
+        success: false,
+      };
+    }
+
+    case DROP_ORDER: {
       return {
         ...state,
         name: null,
