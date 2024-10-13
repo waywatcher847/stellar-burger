@@ -11,8 +11,10 @@ import {
   REMOVE_INGREDIENT,
   ADD_BUN,
   SET_TOTALPRICE,
+  DROP_TOTALPRICE,
   addIngredient,
 } from "../../services/actions/burgerConstructor";
+import { DROP_ORDER } from "../../services/actions/order";
 import { plugData } from "../../utils/data";
 import { getOrderDetails } from "../../services/actions/order";
 import { OrderDetails } from "../OrderDetails/OrderDetails";
@@ -49,7 +51,7 @@ export const BurgerConstructor = () => {
     if (isModalOpen) {
       return;
     }
-    if (bun === null) {
+    if (!bun) {
       return;
     }
     const orderIds = [
@@ -97,7 +99,10 @@ export const BurgerConstructor = () => {
           htmlType="button"
           type="primary"
           size="medium"
-          onClick={() => getOrder()}
+          onClick={() => {
+            dispatch({ type: DROP_ORDER });
+            getOrder();
+          }}
         >
           Оформить заказ
           {isModalOpen && (
@@ -109,6 +114,7 @@ export const BurgerConstructor = () => {
                   dispatch({ type: REMOVE_INGREDIENT, ingredient }),
                 );
                 dispatch({ type: ADD_BUN, plugBunInfo });
+                dispatch({ type: DROP_TOTALPRICE });
                 closeModal();
               }}
             >

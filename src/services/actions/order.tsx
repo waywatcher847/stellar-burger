@@ -5,6 +5,7 @@ import { postOrder } from "../../utils/normaAPI";
 export const _REQUEST_ORDER = "_REQUEST_ORDER";
 export const _SUCCESS_ORDER = "_SUCCESS_ORDER";
 export const _ERROR_ORDER = "_ERROR_ORDER";
+export const DROP_ORDER = "DROP_ORDER";
 
 export const getOrderDetails = (ingredients: IdList) => {
   return async (dispatch: Dispatch) => {
