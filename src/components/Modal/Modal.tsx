@@ -4,7 +4,6 @@ import { ModalOverlayProps } from "../../utils/Types";
 import { ModalOverlay } from "../ModalOverlay/ModalOverlay";
 import styles from "./Modal.module.css";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
 export const Modal = (props: ModalOverlayProps) => {
   const { open, title, children, onClose } = props;

@@ -1,12 +1,13 @@
 import styles from "./IngredientDetails.module.css";
-import { rootReducerType } from "../../utils/Types";
-import { useSelector, useDispatch } from 'react-redux';
+import { RootReducerType } from "../../utils/Types";
+import { useSelector, useDispatch } from "react-redux";
 
-export const IngredientDetails = ( ) => {
-  
+export const IngredientDetails = () => {
   const dispatch: any = useDispatch();
-  const { currentIngridient } = useSelector((store:rootReducerType) => store.currentIngridient);
-  
+  const { loading, currentIngridient } = useSelector(
+    (store: RootReducerType) => store.currentIngridient,
+  );
+
   return (
     <div className={styles.wrapper}>
       <img src={currentIngridient.image_large} alt={currentIngridient.name} />

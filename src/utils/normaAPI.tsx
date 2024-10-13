@@ -1,28 +1,20 @@
-import { normaAPI } from "./Constants";
-import { ExpectedStructure } from "./Types";
+import { BASE_URL } from "./Constants";
 import { IdList } from "./Types";
+import {checkReponse} from "./checkresponse";
 
 export function getIngredientsRequest() {
-    return fetch(`${normaAPI}/ingredients`)
-        .then((res) => {
-            return res.ok ? 
-            res.json() : 
-            res.json().then((err) => Promise.reject(err));
-        })
-}
+  return fetch(`${BASE_URL}/ingredients`)
+  .then(checkReponse)
+  };
 
-export function postOrder(ingredients:IdList) {
-    return fetch(`${normaAPI}/orders`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            ingredients,
-        }),
-    }).then((res) => {
-        return res.ok ? 
-        res.json() : 
-        res.json().then((err) => Promise.reject(err));
-    })
-}
+export function postOrder(ingredients: IdList) {
+  return fetch(`${BASE_URL}/orders`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      ingredients: ingredients
+    }),
+  }).then(checkReponse);
+};
