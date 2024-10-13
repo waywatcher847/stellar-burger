@@ -16,7 +16,6 @@ export interface Ingredient {
 }
 export interface IngredientList extends Array<Ingredient> {}
 
-
 export interface IngredientCardProps {
   idx: number;
   itemCard: Ingredient;
@@ -54,7 +53,7 @@ export interface IngredientDetailsProps {
 }
 
 export interface OrderDetailsProps {
-  orderResponse:  OrderDetailsType ;
+  orderResponse: OrderDetailsType;
 }
 export interface RequestDataProps {
   url: string;
@@ -81,44 +80,45 @@ export interface BurgeringredientProps {
 }
 export interface OrderResponseStructure {
   name: string;
-  order:{number: number};
+  order: { number: number };
   success: boolean;
-} 
-
-export  interface IngredientsType {
-  loading: boolean,
-  success: boolean,
-  error: boolean,
-  ingridients: ExpectedStructure,
-};
-export  interface  CurrentIngredientType {
-  currentIngridient: Ingredient,
-};
-
-export interface  UniqueItem {
-  uniqid: number,
-  item: Ingredient,
 }
-export interface  ItemStack extends Array<UniqueItem> { }
 
-export interface  СonstructorState {
+export interface IngredientsType {
+  loading: boolean;
+  success: boolean;
+  error: boolean;
+  ingridients: ExpectedStructure;
+}
+export interface CurrentIngredientType {
+  loading: boolean;
+  currentIngridient: Ingredient;
+}
+
+export interface UniqueItem {
+  uniqid: number;
+  item: Ingredient;
+}
+export interface ItemStack extends Array<UniqueItem> {}
+
+export interface СonstructorState {
   bun: Ingredient | null;
   ingredients: ItemStack | [];
   totalPrice: number;
 }
 
-export  interface  OrderDetailsType {
-  loading: boolean,
-  name: string,
+export interface OrderDetailsType {
+  loading: boolean;
+  name: string;
   order: {
-      number: number,
-  },
-  success: boolean,
-};
+    number: number;
+  };
+  success: boolean;
+}
 
-export  interface rootReducerType{
-  currentIngridient:CurrentIngredientType;
-  ingridients:IngredientsType;
-  burgerConstrucor:СonstructorState;
-  orderDetails:OrderDetailsType;
+export interface RootReducerType {
+  currentIngridient: CurrentIngredientType;
+  ingridients: IngredientsType;
+  burgerConstrucor: СonstructorState;
+  orderDetails: OrderDetailsType;
 }

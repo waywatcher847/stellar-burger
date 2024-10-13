@@ -1,6 +1,5 @@
-
-import { IngredientPanelProps} from "../../utils/Types";
-import { IngredientCard }  from "./IngredientCard";
+import { IngredientPanelProps } from "../../utils/Types";
+import { IngredientCard } from "./IngredientCard";
 
 export const IngredientPanel = (props: IngredientPanelProps) => {
   const { currentTab, data } = props;
@@ -27,4 +26,3 @@ export const IngredientPanel = (props: IngredientPanelProps) => {
     </>
   );
 };
-
