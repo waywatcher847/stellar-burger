@@ -28,10 +28,7 @@ export const burgerConstructorReducer = (
     case ADD_INGREDIENT: {
       return {
         ...state,
-        ingredients: [
-          ...state.ingredients,
-          action.payload
-        ],
+        ingredients: [...state.ingredients, action.payload],
       };
     }
     case REMOVE_INGREDIENT: {

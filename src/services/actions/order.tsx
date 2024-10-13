@@ -9,27 +9,28 @@ export const _ERROR_ORDER = "_ERROR_ORDER";
 export const getOrderDetails = (ingredients: IdList) => {
   return async (dispatch: Dispatch) => {
     dispatch({
-        type: _REQUEST_ORDER,
-    })
+      type: _REQUEST_ORDER,
+    });
     postOrder(ingredients)
-    .then(res => {
+      .then((res) => {
         if (res && res.success) {
-            dispatch({
-                type: _SUCCESS_ORDER,
-                name: res.name,
-                order: {
-                    number: res.order.number
-                },
-            })
+          dispatch({
+            type: _SUCCESS_ORDER,
+            name: res.name,
+            order: {
+              number: res.order.number,
+            },
+          });
         } else {
-            dispatch({
-                type: _ERROR_ORDER,
-            })
-        }
-    }).catch(err => {
-        dispatch({
+          dispatch({
             type: _ERROR_ORDER,
-        })
-    })
-}
-}
+          });
+        }
+      })
+      .catch((err) => {
+        dispatch({
+          type: _ERROR_ORDER,
+        });
+      });
+  };
+};

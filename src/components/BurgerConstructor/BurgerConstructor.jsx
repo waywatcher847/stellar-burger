@@ -105,12 +105,10 @@ export const BurgerConstructor = () => {
               open={isModalOpen}
               onClose={(e) => {
                 e.stopPropagation();
-                ingredients.forEach(
-                  (ingredient)=>dispatch(
-                    { type: REMOVE_INGREDIENT, ingredient }
-                  )
+                ingredients.forEach((ingredient) =>
+                  dispatch({ type: REMOVE_INGREDIENT, ingredient }),
                 );
-                dispatch({ type: ADD_BUN, plugBunInfo })
+                dispatch({ type: ADD_BUN, plugBunInfo });
                 closeModal();
               }}
             >

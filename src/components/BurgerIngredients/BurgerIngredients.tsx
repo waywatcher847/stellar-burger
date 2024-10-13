@@ -1,15 +1,11 @@
-import { useState, useRef,  useEffect} from "react";
+import { useState, useRef, useEffect } from "react";
 import styles from "./BurgerIngredients.module.css";
 import { IngredientPanel } from "./IngredientPanel";
 import { BurgerTab } from "./BurgerTab";
 import { RootReducerType } from "../../utils/Types";
 import { useSelector, useDispatch } from "react-redux";
 
-
 export const Burgeringredients = () => {
-
-
-  
   const { ingridients } = useSelector(
     (store: RootReducerType) => store.ingridients,
   );
@@ -21,7 +17,10 @@ export const Burgeringredients = () => {
 
   const headerRefs = useRef<(HTMLElement | null)[]>([]);
   const handleIntersection = (entry: IntersectionObserverEntry) => {
-    if ((entry.isIntersecting) || (entry.target.id !== "Булки" && entry.target.id !== "Соусы" ) ) {
+    if (
+      entry.isIntersecting ||
+      (entry.target.id !== "Булки" && entry.target.id !== "Соусы")
+    ) {
       setTab(entry.target.id);
     }
   };
@@ -33,16 +32,16 @@ export const Burgeringredients = () => {
     };
     const observer = new IntersectionObserver((entries) => {
       entries.reverse().forEach(handleIntersection);
-    },options);
+    }, options);
 
-    headerRefs.current.forEach(ref => {
+    headerRefs.current.forEach((ref) => {
       if (ref) {
         observer.observe(ref);
       }
     });
 
     return () => {
-      headerRefs.current.forEach(ref => {
+      headerRefs.current.forEach((ref) => {
         if (ref) {
           observer.unobserve(ref);
         }
@@ -53,7 +52,7 @@ export const Burgeringredients = () => {
   return (
     <section className={styles.section}>
       <header className="text text_type_main-large">Собери бургер</header>
-      <nav className={styles.nav} >
+      <nav className={styles.nav}>
         <BurgerTab
           tabName="Булки"
           currentTab={tab}
@@ -70,17 +69,35 @@ export const Burgeringredients = () => {
           clickHandler={clickHandler}
         />
       </nav>
-      <div className={styles.cardPanelGroup}  id="scrollDiv" >
-        <header id = "Булки" ref={el => (headerRefs.current[1] = el)} className="text_type_main-medium pt-4 pb-4">Булки</header>
+      <div className={styles.cardPanelGroup} id="scrollDiv">
+        <header
+          id="Булки"
+          ref={(el) => (headerRefs.current[1] = el)}
+          className="text_type_main-medium pt-4 pb-4"
+        >
+          Булки
+        </header>
         <div className={styles.cardPanel}>
           <IngredientPanel currentTab="Булки" data={ingridients.data} />
         </div>
-        <header id = "Начинки" ref={el => (headerRefs.current[3] = el)} className="text_type_main-medium pt-4 pb-4" >Начинки</header>
-        <div  className={styles.cardPanel}>
+        <header
+          id="Начинки"
+          ref={(el) => (headerRefs.current[3] = el)}
+          className="text_type_main-medium pt-4 pb-4"
+        >
+          Начинки
+        </header>
+        <div className={styles.cardPanel}>
           <IngredientPanel currentTab="Начинки" data={ingridients.data} />
         </div>
-        <header id = "Соусы" ref={el => (headerRefs.current[6] = el)} className="text_type_main-medium pt-4 pb-4">Соусы</header>
-        <div  className={styles.cardPanel}>
+        <header
+          id="Соусы"
+          ref={(el) => (headerRefs.current[6] = el)}
+          className="text_type_main-medium pt-4 pb-4"
+        >
+          Соусы
+        </header>
+        <div className={styles.cardPanel}>
           <IngredientPanel currentTab="Соусы" data={ingridients.data} />
         </div>
       </div>
