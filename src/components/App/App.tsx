@@ -1,26 +1,39 @@
 import { FetchData } from "../../utils/Types";
 import styles from "./App.module.css";
+import { useEffect } from "react";
 import { Appheader } from "../AppHeader/AppHeader";
 import { BurgerConstructor } from "../BurgerConstructor/BurgerConstructor";
 import { Burgeringredients } from "../BurgerIngredients/BurgerIngredients";
-import { GetIngredientList } from "../../utils/FetchHoc";
+import { getIngredients } from "../../services/actions/ingridients";
+import { useSelector, useDispatch } from "react-redux";
+import { RootReducerType } from "../../utils/Types";
 
-function App(props: FetchData) {
-  const { fetchedData, loading, error } = props;
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+
+function App() {
+  const dispatch: any = useDispatch();
+  const { loading } = useSelector(
+    (store: RootReducerType) => store.ingridients,
+  );
+
+  useEffect(() => {
+    dispatch(getIngredients());
+  }, [dispatch]);
 
   if (loading) return <div>Загрузка...</div>;
-  if (error) return <div>Ошибка: {error}</div>;
 
-  if (fetchedData === null) return null;
   return (
     <>
       <Appheader />
       <main className={styles.body}>
-        <Burgeringredients data={fetchedData.data} />
-        <BurgerConstructor data={fetchedData.data} />
+        <DndProvider backend={HTML5Backend}>
+          <Burgeringredients />
+          <BurgerConstructor />
+        </DndProvider>
       </main>
     </>
   );
 }
 
-export default GetIngredientList(App);
+export default App;

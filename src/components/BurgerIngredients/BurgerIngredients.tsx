@@ -1,105 +1,53 @@
-import React, { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import styles from "./BurgerIngredients.module.css";
-import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
-import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-// import { plugData } from "../../utils/data";
-import {
-  IngredientCardProps,
-  IngredientPanelProps,
-  BurgerTabProps,
-} from "../../utils/Types";
-import { Modal } from "../Modal/Modal";
-import { IngredientDetails } from "../IngredientDetails/IngredientDetails";
-import { BurgeringredientProps } from "../../utils/Types";
-import { useModal } from "../../hooks/useModal";
+import { IngredientPanel } from "./IngredientPanel";
+import { BurgerTab } from "./BurgerTab";
+import { RootReducerType } from "../../utils/Types";
+import { useSelector, useDispatch } from "react-redux";
 
-const IngredientCard = (props: IngredientCardProps) => {
-  // const [isModalOpen, setIsModalOpen] = React.useState(false);
-  const { isModalOpen, openModal, closeModal } = useModal();
-  const { idx, itemCard } = props;
-
-  return (
-    <div
-      role="button"
-      onClick={() => openModal()}
-      className={`${styles.cardContainer} scroll`}
-      key={idx}
-    >
-      <Counter count={idx}></Counter>
-
-      <img src={itemCard.image} alt={itemCard.name}></img>
-      <div className={styles.cardPrice}>
-        <p className="text text_type_digits-medium pr-4">{itemCard.price}</p>
-        <CurrencyIcon className={styles.Icon} type="primary" />
-      </div>
-      <br />
-      <div className={styles.cardPrice}>
-        <p className="text text_type_main-small">{itemCard.name}</p>
-      </div>
-      {isModalOpen && (
-        <Modal
-          open={isModalOpen}
-          onClose={(e) => {
-            e.stopPropagation();
-            closeModal();
-          }}
-          title={"Детали ингридиента"}
-        >
-          <IngredientDetails ingredient={itemCard} />
-        </Modal>
-      )}
-    </div>
+export const Burgeringredients = () => {
+  const { ingridients } = useSelector(
+    (store: RootReducerType) => store.ingridients,
   );
-};
-
-const IngredientPanel = (props: IngredientPanelProps) => {
-  const { currentTab, data } = props;
-
-  const itemType = (() => {
-    switch (currentTab) {
-      case "Булки":
-        return "bun";
-      case "Начинки":
-        return "main";
-      case "Соусы":
-        return "sauce";
-      default:
-        return "bun";
-    }
-  })();
-  return (
-    <>
-      {data
-        .filter((item) => item.type === itemType)
-        .map((item, i) => (
-          <IngredientCard idx={i} itemCard={item} key={item._id} />
-        ))}
-    </>
-  );
-};
-
-const BurgerTab = (props: BurgerTabProps) => {
-  const { tabName, currentTab, clickHandler } = props;
-
-  return (
-    <Tab
-      value={tabName}
-      active={currentTab === tabName}
-      onClick={(currentTab) => clickHandler(currentTab)}
-    >
-      {tabName}
-    </Tab>
-  );
-};
-
-export const Burgeringredients = (props: BurgeringredientProps) => {
-  const { data } = props;
 
   const [tab, setTab] = useState<string>("Булки");
   const clickHandler = (p: string) => {
     setTab(p);
   };
+
+  const headerRefs = useRef<(HTMLElement | null)[]>([]);
+  const handleIntersection = (entry: IntersectionObserverEntry) => {
+    if (
+      entry.isIntersecting ||
+      (entry.target.id !== "Булки" && entry.target.id !== "Соусы")
+    ) {
+      setTab(entry.target.id);
+    }
+  };
+  useEffect(() => {
+    const options = {
+      root: document.getElementById("scrollDiv"),
+      rootMargin: "0px",
+      threshold: 0.5,
+    };
+    const observer = new IntersectionObserver((entries) => {
+      entries.reverse().forEach(handleIntersection);
+    }, options);
+
+    headerRefs.current.forEach((ref) => {
+      if (ref) {
+        observer.observe(ref);
+      }
+    });
+
+    return () => {
+      headerRefs.current.forEach((ref) => {
+        if (ref) {
+          observer.unobserve(ref);
+        }
+      });
+    };
+  }, []);
 
   return (
     <section className={styles.section}>
@@ -121,9 +69,37 @@ export const Burgeringredients = (props: BurgeringredientProps) => {
           clickHandler={clickHandler}
         />
       </nav>
-      <header className="text_type_main-medium">{tab}</header>
-      <div className={styles.cardPanel}>
-        <IngredientPanel currentTab={tab} data={data} />
+      <div className={styles.cardPanelGroup} id="scrollDiv">
+        <header
+          id="Булки"
+          ref={(el) => (headerRefs.current[1] = el)}
+          className="text_type_main-medium pt-4 pb-4"
+        >
+          Булки
+        </header>
+        <div className={styles.cardPanel}>
+          <IngredientPanel currentTab="Булки" data={ingridients.data} />
+        </div>
+        <header
+          id="Начинки"
+          ref={(el) => (headerRefs.current[3] = el)}
+          className="text_type_main-medium pt-4 pb-4"
+        >
+          Начинки
+        </header>
+        <div className={styles.cardPanel}>
+          <IngredientPanel currentTab="Начинки" data={ingridients.data} />
+        </div>
+        <header
+          id="Соусы"
+          ref={(el) => (headerRefs.current[6] = el)}
+          className="text_type_main-medium pt-4 pb-4"
+        >
+          Соусы
+        </header>
+        <div className={styles.cardPanel}>
+          <IngredientPanel currentTab="Соусы" data={ingridients.data} />
+        </div>
       </div>
     </section>
   );
