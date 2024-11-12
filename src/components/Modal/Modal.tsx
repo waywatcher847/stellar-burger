@@ -19,7 +19,7 @@ export const Modal = (props: ModalOverlayProps) => {
     };
   }, []);
 
-  if (!open) return null;
+  if (!open) return <div>{children}</div>;
 
   return createPortal(
     <ModalOverlay onClose={onClose}>

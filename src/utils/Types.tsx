@@ -1,3 +1,4 @@
+import { number } from "prop-types";
 import { ReactNode } from "react";
 
 export interface Ingredient {
@@ -49,12 +50,9 @@ export interface ModalOverlayProps {
   onClose: (e: any) => void;
 }
 export interface IngredientDetailsProps {
-  ingredient: Ingredient;
+  ingredient: Ingredient | null;
 }
 
-export interface OrderDetailsProps {
-  orderResponse: OrderDetailsType;
-}
 export interface RequestDataProps {
   url: string;
   options: () => RequestInit;
@@ -62,10 +60,6 @@ export interface RequestDataProps {
 
 export interface GetIngredientListProps {
   url: string;
-}
-export interface ExpectedStructure {
-  success: boolean;
-  data: IngredientList;
 }
 export interface FetchData {
   fetchedData: ExpectedStructure | null;
@@ -78,17 +72,33 @@ export interface BurgerConstructorProps {
 export interface BurgeringredientProps {
   data: IngredientList;
 }
-export interface OrderResponseStructure {
+export interface OrderResponse {
   name: string;
-  order: { number: number };
+  order: {
+    number: number | null;
+  };
+}
+export interface ExpectedStructure {
   success: boolean;
+  data: IngredientList;
+}
+export interface ExpectedStructureOrder {
+  success: boolean;
+  name: string;
+  order: {
+    number: number | null;
+  };
+}
+export interface OrderDetailsType {
+  loading: boolean;
+  order: ExpectedStructureOrder;
 }
 
 export interface IngredientsType {
   loading: boolean;
   success: boolean;
-  error: boolean;
-  ingridients: ExpectedStructure;
+  error: string | null;
+  ingredients: ExpectedStructure;
 }
 export interface CurrentIngredientType {
   loading: boolean;
@@ -96,24 +106,22 @@ export interface CurrentIngredientType {
 }
 
 export interface UniqueItem {
-  uniqid: number;
+  uniqid: string;
   item: Ingredient;
 }
 export interface ItemStack extends Array<UniqueItem> {}
 
 export interface СonstructorState {
   bun: Ingredient | null;
-  ingredients: ItemStack | [];
+  ingredients: UniqueItem[];
   totalPrice: number;
 }
 
-export interface OrderDetailsType {
+export interface IngredientsType {
   loading: boolean;
-  name: string;
-  order: {
-    number: number;
-  };
   success: boolean;
+  error: string | null;
+  ingredients: ExpectedStructure;
 }
 
 export interface RootReducerType {
@@ -122,3 +130,55 @@ export interface RootReducerType {
   burgerConstrucor: СonstructorState;
   orderDetails: OrderDetailsType;
 }
+
+export type LocationApp = {
+  state: { background: Location | any };
+};
+export interface DragType {
+  from: number;
+  to: number;
+}
+
+export interface ItemCardDND {
+  itemCard: Ingredient;
+}
+
+export type TUser = {
+  email: string;
+  name: string;
+};
+
+export type TServerResponse<T> = {
+  success: boolean;
+} & T;
+
+export type TIngredientsResponse = TServerResponse<{
+  data: Ingredient[];
+}>;
+export type TOrderResponse = TServerResponse<{
+  name: string;
+  order: {
+    number: number | null;
+  };
+}>;
+export type TRegisterData = {
+  email: string;
+  name: string;
+  password: string;
+};
+export type TAuthResponse = TServerResponse<{
+  refreshToken: string;
+  accessToken: string;
+  user: TUser;
+}>;
+
+export type TRefreshResponse = TServerResponse<{
+  refreshToken: string;
+  accessToken: string;
+}>;
+export type TLoginData = {
+  email: string;
+  password: string;
+};
+
+export type TUserResponse = TServerResponse<{ user: TUser }>;

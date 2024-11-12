@@ -1,0 +1,42 @@
+.container {
+  margin: auto;
+  display: flex;
+  max-width: 1240px;
+  width: 100%;
+  height: 100%;
+}
+
+.wrapper {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 480px;
+}
+
+.form {
+  width: 100%;
+}
+
+.title {
+  margin: 0;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+}
+
+.text {
+  color: #8585ad;
+}
+
+.link {
+  color: #4c4cff;
+}
+
+.error {
+  color: #ff0000;
+  text-align: center;
+}

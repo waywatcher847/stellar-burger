@@ -7,8 +7,8 @@ import {
   MOVE_INGREDIENT,
   REMOVE_INGREDIENT,
   SET_TOTALPRICE,
-} from "../../services/actions/burgerConstructor";
-import { useDispatch } from "react-redux";
+} from "../../services/slices/ConstructorSlice";
+import { useDispatch } from "../../services/store";
 import { FC, SyntheticEvent, useRef } from "react";
 import { DropTargetMonitor, useDrag, useDrop } from "react-dnd";
 
@@ -56,10 +56,7 @@ export const StackItem = (props: StackItemProps) => {
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
         return;
       }
-      dispatch({
-        type: MOVE_INGREDIENT,
-        move: { from: dragIndex, to: hoverIndex },
-      });
+      dispatch(MOVE_INGREDIENT({ from: dragIndex, to: hoverIndex }));
 
       item.index = hoverIndex;
     },
@@ -68,8 +65,8 @@ export const StackItem = (props: StackItemProps) => {
   drag(drop(ingredientRef));
 
   const removeIngridient = (ingredient: UniqueItem) => {
-    dispatch({ type: REMOVE_INGREDIENT, ingredient });
-    dispatch({ type: SET_TOTALPRICE, ingredient });
+    dispatch(REMOVE_INGREDIENT(ingredient));
+    dispatch(SET_TOTALPRICE());
   };
   return (
     <div

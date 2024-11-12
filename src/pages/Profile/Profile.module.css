@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  max-width: 1240px;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.form {
+  width: 100%;
+}
+
+.link {
+  display: block;
+  width: 100%;
+  text-decoration: none;
+  display: block;
+}
+
+.button {
+  text-decoration: none;
+  display: block;
+  color: #8585ad;
+  background-color: unset;
+  border: none;
+}
+
+.button:hover {
+  cursor: pointer;
+}

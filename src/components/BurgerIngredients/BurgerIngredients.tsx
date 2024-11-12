@@ -2,13 +2,11 @@ import { useState, useRef, useEffect } from "react";
 import styles from "./BurgerIngredients.module.css";
 import { IngredientPanel } from "./IngredientPanel";
 import { BurgerTab } from "./BurgerTab";
-import { RootReducerType } from "../../utils/Types";
-import { useSelector, useDispatch } from "react-redux";
+import { selectIngredients } from "../../services/slices/IngredientsSlice";
+import { useSelector, useDispatch } from "../../services/store";
 
 export const Burgeringredients = () => {
-  const { ingridients } = useSelector(
-    (store: RootReducerType) => store.ingridients,
-  );
+  const ingridients = useSelector(selectIngredients);
 
   const [tab, setTab] = useState<string>("Булки");
   const clickHandler = (p: string) => {
