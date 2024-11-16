@@ -1,14 +1,25 @@
-import { SyntheticEvent, useState } from "react";
+import { ChangeEvent, useState, FormEvent, PointerEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "../../services/store";
 import { registerUser } from "../../services/slices/authUserSlice";
 import {
   Input,
   Button,
-  PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./Register.module.css";
 import { Link } from "react-router-dom";
+interface TPasswordInputInterface
+  extends Omit<React.HTMLProps<HTMLInputElement>, "size" | "type" | "ref"> {
+  value: string;
+  placeholder?: string;
+  size?: "default" | "small";
+  icon?: "HideIcon" | "ShowIcon" | "EditIcon";
+  errorText?: string;
+  checkValid?: (isValid: boolean) => void;
+  extraClass?: string;
+  onChange(e: React.ChangeEvent<HTMLInputElement>): void;
+}
+export declare const PasswordInput: React.FC<TPasswordInputInterface>;
 
 export function RegisterPage() {
   const [password, setPassword] = useState<string>("");
@@ -18,7 +29,7 @@ export function RegisterPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleSubmit = async (e: SyntheticEvent) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
 
@@ -27,11 +38,26 @@ export function RegisterPage() {
     );
     if (registerUser.fulfilled.match(resultActionRegister)) {
       navigate("/");
-    } else if (registerUser.rejected.match(resultActionRegister)&&resultActionRegister.error.message) {
+    } else if (
+      registerUser.rejected.match(resultActionRegister) &&
+      resultActionRegister.error.message
+    ) {
       setError(resultActionRegister.error?.message);
     }
   };
+  const handleChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
+    setUserName(e.target.value);
+  };
+  const handleChangeMail = (e: ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+  const handleChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
 
+  const handlePointerEvent = (e: PointerEvent<HTMLDivElement>) => {
+    // Do nothing
+  };
   return (
     <div className={styles.container}>
       <div className={`pt-4 ${styles.wrapper}`}>
@@ -46,33 +72,33 @@ export function RegisterPage() {
               <Input
                 type="text"
                 placeholder="Имя"
-                onChange={(e) => setUserName(e.target.value)}
+                onChange={handleChangeValue}
                 value={userName}
                 name="name"
                 error={false}
                 errorText=""
                 size="default"
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
+                onPointerEnterCapture={handlePointerEvent}
+                onPointerLeaveCapture={handlePointerEvent}
               />
             </div>
             <div className="pb-4">
               <Input
                 type="email"
                 placeholder="E-mail"
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={handleChangeMail}
                 value={email}
                 name={"email"}
                 error={false}
                 errorText=""
                 size={"default"}
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
+                onPointerEnterCapture={handlePointerEvent}
+                onPointerLeaveCapture={handlePointerEvent}
               />
             </div>
             <div className="pb-4">
               <PasswordInput
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={handleChangePassword}
                 value={password}
                 name="password"
               />

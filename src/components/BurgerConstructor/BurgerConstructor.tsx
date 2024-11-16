@@ -1,3 +1,4 @@
+import { SyntheticEvent } from "react";
 import { DROP_ORDER } from "../../services/slices/OrderSlice";
 import { plugData } from "../../utils/data";
 import { fetchNewOrder } from "../../services/slices/OrderSlice";
@@ -61,7 +62,7 @@ export const BurgerConstructor = () => {
     if (isModalOpen) {
       return;
     }
-    if (!bun) {
+    if (!bun?.name) {
       return;
     }
     const orderIds = [
@@ -73,6 +74,17 @@ export const BurgerConstructor = () => {
     openModal();
   };
 
+  const onClose = (e: KeyboardEventInit | React.MouseEvent<HTMLDivElement>) => {
+    {
+      ingredients.forEach((ingredient) =>
+        dispatch(REMOVE_INGREDIENT(ingredient)),
+      );
+      dispatch(DROP_ORDER());
+      dispatch(ADD_BUN(plugBunInfo));
+      dispatch(DROP_TOTALPRICE());
+      closeModal();
+    }
+  }
   return (
     <section className={styles.section}>
       <div className={styles.burgerWrapper} ref={dropTarget}>
@@ -109,8 +121,8 @@ export const BurgerConstructor = () => {
           htmlType="button"
           type="primary"
           size="medium"
-          onClick={() => {
-            dispatch(DROP_ORDER());
+          onClick={(e) => {
+            // e.preventDefault();
             getOrder();
           }}
         >
@@ -118,15 +130,7 @@ export const BurgerConstructor = () => {
           {isModalOpen && (
             <Modal
               open={isModalOpen}
-              onClose={(e) => {
-                e.stopPropagation();
-                ingredients.forEach((ingredient) =>
-                  dispatch(REMOVE_INGREDIENT(ingredient)),
-                );
-                dispatch(ADD_BUN(plugBunInfo));
-                dispatch(DROP_TOTALPRICE());
-                closeModal();
-              }}
+              onClose={onClose}
             >
               <OrderDetails />
             </Modal>

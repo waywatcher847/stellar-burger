@@ -18,7 +18,7 @@ import { IngredientDetails } from "../IngredientDetails/IngredientDetails";
 import { REMOVE_INGREDIENT_INFO } from "../../services/slices/CurrentIngredientSlice";
 
 export const App = () => {
-  const { isModalOpen, openModal, closeModal } = useModal();
+  const { closeModal } = useModal();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
@@ -92,8 +92,7 @@ export const App = () => {
               <Modal
                 open={true}
                 title="Детали ингредиентов"
-                onClose={(e) => {
-                  e.stopPropagation();
+                onClose={() => {
                   closeModal();
                   dispatch(REMOVE_INGREDIENT_INFO());
                   navigate("/");

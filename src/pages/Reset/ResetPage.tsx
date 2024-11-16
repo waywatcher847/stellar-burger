@@ -1,4 +1,10 @@
-import { FC, SyntheticEvent, useEffect, useState } from "react";
+import {
+  FormEvent,
+  useEffect,
+  useState,
+  ChangeEvent,
+  PointerEvent,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import { resetPasswordRequest } from "../../utils/normaAPI";
 import {
@@ -16,7 +22,7 @@ export function ResetPage() {
   const [token, setToken] = useState("");
   const [error, setError] = useState<Error | null>(null);
 
-  const handleSubmit = (e: SyntheticEvent) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
     resetPasswordRequest({ password, token })
@@ -27,6 +33,17 @@ export function ResetPage() {
       .catch((err: Error) => setError(err));
   };
 
+  const handleChangeToken = (e: ChangeEvent<HTMLInputElement>) => {
+    setToken(e.target.value);
+  };
+
+  const handleChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
+
+  const handlePointerEvent = (e: PointerEvent<HTMLDivElement>) => {
+    // Do nothing
+  };
   useEffect(() => {
     if (!localStorage.getItem("resetPassword")) {
       navigate("/forgot-password", { replace: true });
@@ -44,7 +61,7 @@ export function ResetPage() {
         >
           <div className="pb-4">
             <PasswordInput
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handleChangePassword}
               value={password}
               name="password"
             />
@@ -53,14 +70,14 @@ export function ResetPage() {
             <Input
               type="text"
               placeholder="Введите код из письма"
-              onChange={(e) => setToken(e.target.value)}
+              onChange={handleChangeToken}
               value={token}
               name="token"
               error={false}
               errorText=""
               size="default"
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
+              onPointerEnterCapture={handlePointerEvent}
+              onPointerLeaveCapture={handlePointerEvent}
             />
           </div>
           <div className={`pb-4 ${styles.button}`}>

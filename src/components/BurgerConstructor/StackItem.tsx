@@ -17,7 +17,7 @@ export const StackItem = (props: StackItemProps) => {
   const dispatch = useDispatch();
   const ingredientRef = useRef<HTMLDivElement>(null);
 
-  const [{ isDragging }, drag] = useDrag({
+  const [, drag] = useDrag({
     type: "inbetween",
     item: () => ({ idx }),
 
@@ -28,12 +28,12 @@ export const StackItem = (props: StackItemProps) => {
 
   const [{ handlerId }, drop] = useDrop({
     accept: "inbetween",
-    collect(monitor: DropTargetMonitor) {
+    collect: (monitor: DropTargetMonitor) => {
       return {
         handlerId: monitor.getHandlerId(),
       };
     },
-    drop(item: any, monitor: DropTargetMonitor) {
+    drop: (item: {idx: number}, monitor: DropTargetMonitor) => {
       if (!ingredientRef.current) {
         return;
       }
@@ -58,7 +58,7 @@ export const StackItem = (props: StackItemProps) => {
       }
       dispatch(MOVE_INGREDIENT({ from: dragIndex, to: hoverIndex }));
 
-      item.index = hoverIndex;
+      // item.index = hoverIndex;
     },
   });
 

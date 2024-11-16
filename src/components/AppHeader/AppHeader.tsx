@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, SyntheticEvent } from "react";
 import { NavLink } from "react-router-dom";
 import styles from "./AppHeader.module.css";
 import {
@@ -10,16 +10,18 @@ import { Logo } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "../../services/store";
 import { useEffect } from "react";
 import { fetchUser } from "../../services/slices/authUserSlice";
-
+import { setCookie, getCookie } from "../../utils/cookie";
 export const AppHeader = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
-  const [active, setActive] = React.useState("Constructor");
+  const [active, setActive] = useState("Constructor");
   const textActive = "text text_type_main-default text_color_primary";
   const textInactive = "text text_type_main-default text_color_inactive";
 
   useEffect(() => {
-    dispatch(fetchUser());
+    if (getCookie("accessToken")) {
+      dispatch(fetchUser());
+    }
   }, [dispatch]);
 
   return (

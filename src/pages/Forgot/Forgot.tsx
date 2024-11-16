@@ -1,4 +1,4 @@
-import { FC, SyntheticEvent, useState } from "react";
+import { useState, FormEvent, PointerEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Forgot.module.css";
 import { Link } from "react-router-dom";
@@ -11,10 +11,9 @@ import {
 export function ForgotPage() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
-  const [error, setError] = useState<Error|null>(null);
+  const [error, setError] = useState<Error | null>(null);
 
-
-  const handleSubmit = (e: SyntheticEvent) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     setError(null);
@@ -26,6 +25,9 @@ export function ForgotPage() {
       .catch((err: Error) => setError(err));
   };
 
+  const handlePointerEvent = (e: PointerEvent<HTMLDivElement>) => {
+    // Do nothing
+  };
   return (
     <div className={styles.container}>
       <div className={`${styles.wrapper} pt-6`}>
@@ -45,8 +47,8 @@ export function ForgotPage() {
               error={false}
               errorText=""
               size="default"
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
+              onPointerEnterCapture={handlePointerEvent}
+              onPointerLeaveCapture={handlePointerEvent}
             />
           </div>
           <div className={`pb-4 ${styles.button}`}>
@@ -69,4 +71,4 @@ export function ForgotPage() {
       </div>
     </div>
   );
-};
+}

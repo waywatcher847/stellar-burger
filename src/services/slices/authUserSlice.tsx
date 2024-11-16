@@ -1,3 +1,4 @@
+import { RootState } from "../../services/store";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
   loginRequest,
@@ -18,17 +19,16 @@ import {
   TAuthResponse,
   TUserResponse,
 } from "../../utils/Types";
-import { RootState } from "../../services/store";
-import { deleteCookie, setCookie } from "../../utils/cookie";
+import { getCookie, deleteCookie, setCookie } from "../../utils/cookie";
 
-interface AuthState {
+export interface AuthState {
   isAuthenticated: boolean;
   isAuthChecked: boolean;
   user: TUser | null;
   loading: boolean;
 }
 
-const authInitialState: AuthState = {
+export const authInitialState: AuthState = {
   isAuthenticated: false,
   isAuthChecked: false,
   user: null,

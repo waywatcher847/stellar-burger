@@ -1,14 +1,23 @@
-import { SyntheticEvent, useEffect, useState } from "react";
 import styles from "./Profile.module.css";
+
+import { ProfileMenu } from "./ProfileMenu";
+import { logoutUser } from "../../services/slices/authUserSlice";
+import { useNavigate } from "react-router-dom";
+
+import {
+  SyntheticEvent,
+  useEffect,
+  useState,
+  FormEvent,
+  ChangeEvent,
+  PointerEvent,
+} from "react";
 import { useDispatch, useSelector } from "../../services/store";
 import { fetchUser, updateUser } from "../../services/slices/authUserSlice";
 import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { ProfileMenu } from "./ProfileMenu";
-import { logoutUser } from "../../services/slices/authUserSlice";
-import { useNavigate } from "react-router-dom";
 
 export type ProfileMenuUIProps = {
   handleLogout: () => void;
@@ -35,7 +44,7 @@ export function ProfilePage() {
     dispatch(fetchUser());
   }, [dispatch]);
 
-  const handleSubmit = (e: SyntheticEvent) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(updateUser(userInfo));
     setuserInfo({
@@ -54,7 +63,7 @@ export function ProfilePage() {
     });
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setuserInfo((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
@@ -70,6 +79,9 @@ export function ProfilePage() {
     navigate("/login");
   };
 
+  const handlePointerEvent = (e: PointerEvent<HTMLDivElement>) => {
+    // Do nothing
+  };
   return (
     <div className={styles.container}>
       <div className={`${styles.menu} mt-30 mr-15`}>
@@ -88,8 +100,8 @@ export function ProfilePage() {
               errorText={""}
               size={"default"}
               icon={"EditIcon"}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
+              onPointerEnterCapture={handlePointerEvent}
+              onPointerLeaveCapture={handlePointerEvent}
             />
           </div>
           <div className="pb-4">
@@ -103,8 +115,8 @@ export function ProfilePage() {
               errorText={""}
               size={"default"}
               icon={"EditIcon"}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
+              onPointerEnterCapture={handlePointerEvent}
+              onPointerLeaveCapture={handlePointerEvent}
             />
           </div>
           <div className="pb-4">
@@ -118,8 +130,8 @@ export function ProfilePage() {
               errorText={""}
               size={"default"}
               icon={"EditIcon"}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
+              onPointerEnterCapture={handlePointerEvent}
+              onPointerLeaveCapture={handlePointerEvent}
             />
           </div>
           {infoChanged && (

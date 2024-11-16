@@ -21,6 +21,6 @@ export function MainPage() {
       </main>
     </>
   );
-};
+}
 
 export default MainPage;

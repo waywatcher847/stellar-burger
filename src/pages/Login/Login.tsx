@@ -1,23 +1,24 @@
-import { SyntheticEvent, useState } from "react";
+import styles from "./Login.module.css";
+
 import { useDispatch } from "../../services/store";
 import { loginUser } from "../../services/slices/authUserSlice";
 import { Link, useNavigate } from "react-router-dom";
 
-import styles from "./Login.module.css";
+import { useState, FormEvent, PointerEvent } from "react";
 import {
   Button,
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-export function LoginPage(){
+export function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string>("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: SyntheticEvent) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
 
@@ -27,6 +28,10 @@ export function LoginPage(){
     } else if (loginUser.rejected.match(resultActionLogin)) {
       setError("Неправильный логин или пароль");
     }
+  };
+
+  const handlePointerEvent = (e: PointerEvent<HTMLDivElement>) => {
+    // Do nothing
   };
 
   return (
@@ -49,13 +54,14 @@ export function LoginPage(){
                 error={false}
                 errorText=""
                 size="default"
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
+                onPointerEnterCapture={handlePointerEvent}
+                onPointerLeaveCapture={handlePointerEvent}
               />
             </div>
             <div className="pb-4">
               <PasswordInput
                 onChange={(e) => setPassword(e.target.value)}
+                placeholder="password"
                 value={password}
                 name="password"
               />
@@ -87,4 +93,4 @@ export function LoginPage(){
       </div>
     </div>
   );
-};
+}

@@ -1,5 +1,4 @@
-import { number } from "prop-types";
-import { ReactNode } from "react";
+import { ReactNode, MouseEvent } from "react";
 
 export interface Ingredient {
   _id: string;
@@ -47,7 +46,13 @@ export interface ModalOverlayProps {
   open?: boolean;
   title?: string;
   children?: ReactNode;
-  onClose: (e: any) => void;
+  onClose: (e: MouseEvent<HTMLDivElement>) => void;
+}
+export interface ModalProps {
+  open?: boolean;
+  title?: string;
+  children?: ReactNode;
+  onClose: (e: KeyboardEventInit | MouseEvent<HTMLDivElement>) => void;
 }
 export interface IngredientDetailsProps {
   ingredient: Ingredient | null;
@@ -131,9 +136,9 @@ export interface RootReducerType {
   orderDetails: OrderDetailsType;
 }
 
-export type LocationApp = {
-  state: { background: Location | any };
-};
+// export type LocationApp = {
+//   state: { background: Location | any };
+// };
 export interface DragType {
   from: number;
   to: number;
