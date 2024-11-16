@@ -7,10 +7,12 @@ import { useSelector, useDispatch } from "../../services/store";
 
 export const Burgeringredients = () => {
   const ingridients = useSelector(selectIngredients);
+  const tabRef = useRef<HTMLElement | null>(null);
 
   const [tab, setTab] = useState<string>("Булки");
+
   const clickHandler = (p: string) => {
-    setTab(p);
+    // setTab(p);
   };
 
   const headerRefs = useRef<(HTMLElement | null)[]>([]);
@@ -50,21 +52,21 @@ export const Burgeringredients = () => {
   return (
     <section className={styles.section}>
       <header className="text text_type_main-large">Собери бургер</header>
-      <nav className={styles.nav}>
+      <nav ref={tabRef} id="my-section" className={styles.nav}>
         <BurgerTab
           tabName="Булки"
           currentTab={tab}
-          clickHandler={clickHandler}
+          clickHandler={()=>clickHandler("Булки")}
         />
         <BurgerTab
           tabName="Начинки"
           currentTab={tab}
-          clickHandler={clickHandler}
+          clickHandler={()=>clickHandler("Начинки")}
         />
         <BurgerTab
           tabName="Соусы"
           currentTab={tab}
-          clickHandler={clickHandler}
+          clickHandler={()=>clickHandler("Соусы")}
         />
       </nav>
       <div className={styles.cardPanelGroup} id="scrollDiv">
