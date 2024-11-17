@@ -136,9 +136,6 @@ export interface RootReducerType {
   orderDetails: OrderDetailsType;
 }
 
-// export type LocationApp = {
-//   state: { background: Location | any };
-// };
 export interface DragType {
   from: number;
   to: number;
