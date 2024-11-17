@@ -1,7 +1,7 @@
 import styles from "./OrderDetails.module.css";
 import doneImage from "../../image/done.svg";
 import waitImage from "../../image/spinning-dots.svg";
-import { useDispatch, useSelector } from "../../services/store";
+import { useSelector } from "../../services/store";
 import { selectNewOrder } from "../../services/slices/OrderSlice";
 
 export const OrderDetails = () => {

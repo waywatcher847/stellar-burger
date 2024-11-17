@@ -1,3 +1,7 @@
+# sprint-4/step-1 
+
+Делал изначально на TS, поэтому без изменений отправляю 4 спринт
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
