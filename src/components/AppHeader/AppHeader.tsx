@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, SyntheticEvent } from "react";
 import { NavLink } from "react-router-dom";
 import styles from "./AppHeader.module.css";
 import {
@@ -7,18 +7,35 @@ import {
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Logo } from "@ya.praktikum/react-developer-burger-ui-components";
-
-export const Appheader = () => {
-  const [active, setActive] = React.useState("Constructor");
+import { useDispatch, useSelector } from "../../services/store";
+import { useEffect } from "react";
+import { fetchUser } from "../../services/slices/authUserSlice";
+import { setCookie, getCookie } from "../../utils/cookie";
+export const AppHeader = () => {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
+  const [active, setActive] = useState("Constructor");
   const textActive = "text text_type_main-default text_color_primary";
   const textInactive = "text text_type_main-default text_color_inactive";
+
+  useEffect(() => {
+    if (getCookie("accessToken")) {
+      dispatch(fetchUser());
+    }
+  }, [dispatch]);
+
   return (
     <header className={styles.header}>
       <nav className={styles.menuWrapper}>
         <u className={styles.menu}>
           <li className={styles.menuItem}>
-            <div
-              className={styles.button}
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                isActive
+                  ? `${styles.button} ${textActive}`
+                  : `${styles.button} ${textInactive}`
+              }
               onClick={() => setActive("Constructor")}
             >
               <BurgerIcon
@@ -29,26 +46,42 @@ export const Appheader = () => {
               >
                 Конструктор
               </p>
-            </div>
-            <div className={styles.button} onClick={() => setActive("Orders")}>
+            </NavLink>
+            <NavLink
+              to="/feed"
+              className={({ isActive }) =>
+                isActive
+                  ? `${styles.button} ${textActive}`
+                  : `${styles.button} ${textInactive}`
+              }
+              onClick={() => setActive("Orders")}
+            >
               <ListIcon type={active === "Orders" ? "primary" : "secondary"} />
               <p className={active === "Orders" ? textActive : textInactive}>
                 Лента заказов
               </p>
-            </div>
+            </NavLink>
           </li>
           <li className={styles.logo}>
             <Logo />
           </li>
           <li>
-            <div className={styles.button} onClick={() => setActive("Profile")}>
+            <NavLink
+              to="/profile"
+              className={({ isActive }) =>
+                isActive
+                  ? `${styles.button} ${textActive}`
+                  : `${styles.button} ${textInactive}`
+              }
+              onClick={() => setActive("Profile")}
+            >
               <ProfileIcon
                 type={active === "Profile" ? "primary" : "secondary"}
               />
               <p className={active === "Profile" ? textActive : textInactive}>
-                Личный кабинет
+                {user?.name || "Личный кабинет"}
               </p>
-            </div>
+            </NavLink>
           </li>
         </u>
       </nav>

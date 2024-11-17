@@ -1,28 +1,32 @@
+import { SyntheticEvent } from "react";
+import { DROP_ORDER } from "../../services/slices/OrderSlice";
+import { plugData } from "../../utils/data";
+import { fetchNewOrder } from "../../services/slices/OrderSlice";
+import { OrderDetails } from "../OrderDetails/OrderDetails";
+import { ItemCardDND } from "../../utils/Types";
 import styles from "./BurgerConstructor.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Modal } from "../Modal/Modal";
 import { useModal } from "../../hooks/useModal";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../services/store";
 import { useDrop } from "react-dnd";
 import { BurgerStack } from "./BurgerStack";
+import { useNavigate } from "react-router-dom";
 import {
   REMOVE_INGREDIENT,
   ADD_BUN,
   SET_TOTALPRICE,
   DROP_TOTALPRICE,
-  addIngredient,
-} from "../../services/actions/burgerConstructor";
-import { DROP_ORDER } from "../../services/actions/order";
-import { plugData } from "../../utils/data";
-import { getOrderDetails } from "../../services/actions/order";
-import { OrderDetails } from "../OrderDetails/OrderDetails";
-
+  ADD_INGREDIENT,
+} from "../../services/slices/ConstructorSlice";
 export const BurgerConstructor = () => {
   const { bun, ingredients, totalPrice } = useSelector(
     (store) => store.burgerConstrucor,
   );
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const navigate = useNavigate();
   const { isModalOpen, openModal, closeModal } = useModal();
   const plugBunInfo = plugData[0];
   const bunInfo = !bun ? plugBunInfo : bun;
@@ -37,21 +41,28 @@ export const BurgerConstructor = () => {
 
   const [, dropTarget] = useDrop({
     accept: "ingredient",
-    drop: ({ itemCard }) => {
-      if (itemCard.type === "bun") {
-        dispatch({ type: ADD_BUN, itemCard });
-      } else {
-        dispatch(addIngredient(itemCard));
+    drop: (payload: ItemCardDND) => {
+      if (payload.itemCard === null) {
+        return;
       }
-      dispatch({ type: SET_TOTALPRICE, itemCard });
+      if (payload.itemCard.type === "bun") {
+        dispatch(ADD_BUN(payload.itemCard));
+      } else {
+        dispatch(ADD_INGREDIENT(payload.itemCard));
+      }
+      dispatch(SET_TOTALPRICE());
     },
   });
 
   const getOrder = () => {
+    if (!isAuthenticated) {
+      navigate("/login");
+      return;
+    }
     if (isModalOpen) {
       return;
     }
-    if (!bun) {
+    if (!bun?.name) {
       return;
     }
     const orderIds = [
@@ -59,10 +70,21 @@ export const BurgerConstructor = () => {
       ...ingredients.map((item) => item.item._id),
       bun._id,
     ];
-    dispatch(getOrderDetails(orderIds));
+    dispatch(fetchNewOrder(orderIds));
     openModal();
   };
 
+  const onClose = (e: KeyboardEventInit | React.MouseEvent<HTMLDivElement>) => {
+    {
+      ingredients.forEach((ingredient) =>
+        dispatch(REMOVE_INGREDIENT(ingredient)),
+      );
+      dispatch(DROP_ORDER());
+      dispatch(ADD_BUN(plugBunInfo));
+      dispatch(DROP_TOTALPRICE());
+      closeModal();
+    }
+  }
   return (
     <section className={styles.section}>
       <div className={styles.burgerWrapper} ref={dropTarget}>
@@ -99,8 +121,8 @@ export const BurgerConstructor = () => {
           htmlType="button"
           type="primary"
           size="medium"
-          onClick={() => {
-            dispatch({ type: DROP_ORDER });
+          onClick={(e) => {
+            // e.preventDefault();
             getOrder();
           }}
         >
@@ -108,15 +130,7 @@ export const BurgerConstructor = () => {
           {isModalOpen && (
             <Modal
               open={isModalOpen}
-              onClose={(e) => {
-                e.stopPropagation();
-                ingredients.forEach((ingredient) =>
-                  dispatch({ type: REMOVE_INGREDIENT, ingredient }),
-                );
-                dispatch({ type: ADD_BUN, plugBunInfo });
-                dispatch({ type: DROP_TOTALPRICE });
-                closeModal();
-              }}
+              onClose={onClose}
             >
               <OrderDetails />
             </Modal>

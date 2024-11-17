@@ -1,24 +1,23 @@
 import styles from "./BurgerIngredients.module.css";
+import {
+  SET_INGREDIENT_INFO,
+  REMOVE_INGREDIENT_INFO,
+} from "../../services/slices/CurrentIngredientSlice";
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { IngredientCardProps } from "../../utils/Types";
 import { Modal } from "../Modal/Modal";
-import { IngredientDetails } from "../IngredientDetails/IngredientDetails";
+import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useModal } from "../../hooks/useModal";
 import { useDrag } from "react-dnd";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  SET_INGREDIENT_INFO,
-  REMOVE_INGREDIENT_INFO,
-} from "../../services/actions/currentIngridient";
-import { RootReducerType } from "../../utils/Types";
+import { useDispatch, useSelector } from "../../services/store";
 
 export const IngredientCard = (props: IngredientCardProps) => {
+  const location = useLocation();
   const { isModalOpen, openModal, closeModal } = useModal();
   const { idx, itemCard } = props;
-  const { bun, ingredients } = useSelector(
-    (state: RootReducerType) => state.burgerConstrucor,
-  );
+  const { bun, ingredients } = useSelector((state) => state.burgerConstrucor);
 
   const dispatch = useDispatch();
 
@@ -38,14 +37,15 @@ export const IngredientCard = (props: IngredientCardProps) => {
       : 0;
 
   return (
-    <div
-      role="button"
+    <Link
+      className={styles.cardContainer}
+      to={`/ingredients/${itemCard._id}`}
       onClick={() => {
         openModal();
-        dispatch({ type: SET_INGREDIENT_INFO, itemCard });
+        dispatch(SET_INGREDIENT_INFO(itemCard));
       }}
-      className={`${styles.cardContainer} scroll`}
       key={idx}
+      state={{ background: location }}
     >
       <Counter count={count}></Counter>
 
@@ -60,19 +60,6 @@ export const IngredientCard = (props: IngredientCardProps) => {
       <div className={styles.cardPrice}>
         <p className="text text_type_main-small">{itemCard.name}</p>
       </div>
-      {isModalOpen && (
-        <Modal
-          open={isModalOpen}
-          onClose={(e) => {
-            e.stopPropagation();
-            closeModal();
-            dispatch({ type: REMOVE_INGREDIENT_INFO, itemCard });
-          }}
-          title={"Детали ингридиента"}
-        >
-          <IngredientDetails />
-        </Modal>
-      )}
-    </div>
+    </Link>
   );
 };

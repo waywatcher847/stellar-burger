@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.text {
+  text-align: center;
+}
+.content {
+  margin: auto;
+}
+
+.link {
+  color: var(--color-title);
+}

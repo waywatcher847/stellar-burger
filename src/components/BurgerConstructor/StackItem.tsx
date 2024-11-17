@@ -7,8 +7,8 @@ import {
   MOVE_INGREDIENT,
   REMOVE_INGREDIENT,
   SET_TOTALPRICE,
-} from "../../services/actions/burgerConstructor";
-import { useDispatch } from "react-redux";
+} from "../../services/slices/ConstructorSlice";
+import { useDispatch } from "../../services/store";
 import { FC, SyntheticEvent, useRef } from "react";
 import { DropTargetMonitor, useDrag, useDrop } from "react-dnd";
 
@@ -17,7 +17,7 @@ export const StackItem = (props: StackItemProps) => {
   const dispatch = useDispatch();
   const ingredientRef = useRef<HTMLDivElement>(null);
 
-  const [{ isDragging }, drag] = useDrag({
+  const [, drag] = useDrag({
     type: "inbetween",
     item: () => ({ idx }),
 
@@ -28,12 +28,12 @@ export const StackItem = (props: StackItemProps) => {
 
   const [{ handlerId }, drop] = useDrop({
     accept: "inbetween",
-    collect(monitor: DropTargetMonitor) {
+    collect: (monitor: DropTargetMonitor) => {
       return {
         handlerId: monitor.getHandlerId(),
       };
     },
-    drop(item: any, monitor: DropTargetMonitor) {
+    drop: (item: {idx: number}, monitor: DropTargetMonitor) => {
       if (!ingredientRef.current) {
         return;
       }
@@ -56,20 +56,17 @@ export const StackItem = (props: StackItemProps) => {
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
         return;
       }
-      dispatch({
-        type: MOVE_INGREDIENT,
-        move: { from: dragIndex, to: hoverIndex },
-      });
+      dispatch(MOVE_INGREDIENT({ from: dragIndex, to: hoverIndex }));
 
-      item.index = hoverIndex;
+      // item.index = hoverIndex;
     },
   });
 
   drag(drop(ingredientRef));
 
   const removeIngridient = (ingredient: UniqueItem) => {
-    dispatch({ type: REMOVE_INGREDIENT, ingredient });
-    dispatch({ type: SET_TOTALPRICE, ingredient });
+    dispatch(REMOVE_INGREDIENT(ingredient));
+    dispatch(SET_TOTALPRICE());
   };
   return (
     <div
