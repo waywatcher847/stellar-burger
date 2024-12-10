@@ -56,17 +56,17 @@ export const Burgeringredients = () => {
         <BurgerTab
           tabName="Булки"
           currentTab={tab}
-          clickHandler={()=>clickHandler("Булки")}
+          clickHandler={() => clickHandler("Булки")}
         />
         <BurgerTab
           tabName="Начинки"
           currentTab={tab}
-          clickHandler={()=>clickHandler("Начинки")}
+          clickHandler={() => clickHandler("Начинки")}
         />
         <BurgerTab
           tabName="Соусы"
           currentTab={tab}
-          clickHandler={()=>clickHandler("Соусы")}
+          clickHandler={() => clickHandler("Соусы")}
         />
       </nav>
       <div className={styles.cardPanelGroup} id="scrollDiv">

@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { useState, FC } from "react";
 import styles from "./Profile.module.css";
 import { NavLink } from "react-router-dom";
 import { ProfileMenuUIProps } from "./ProfilePage";
@@ -8,7 +8,7 @@ export const ProfileMenu: FC<ProfileMenuUIProps> = ({ handleLogout }) => (
     <NavLink
       to={"/profile"}
       className={({ isActive }) =>
-        `text_type_main-medium pt-4 pb-4 ${styles.link} ${isActive ? "text_color_primary" : "text_color_inactive"}`
+        `text_type_main-medium pt-4 pb-4 ${styles.link} ${"text_color_inactive"}`
       }
     >
       Профиль
@@ -16,7 +16,7 @@ export const ProfileMenu: FC<ProfileMenuUIProps> = ({ handleLogout }) => (
     <NavLink
       to={"/profile/orders"}
       className={({ isActive }) =>
-        `text_type_main-medium pt-4 pb-4 ${styles.link} ${isActive ? "text_color_primary" : "text_color_inactive"}`
+        `text_type_main-medium pt-4 pb-4 ${styles.link} ${"text_color_inactive"}`
       }
     >
       История заказов

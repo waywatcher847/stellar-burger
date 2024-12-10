@@ -4,6 +4,8 @@ import { setCookie, getCookie } from "./cookie";
 import {
   IdList,
   TLoginData,
+  TOrder,
+  TorderByID,
   TRefreshResponse,
   TAuthResponse,
   TRegisterData,
@@ -149,8 +151,9 @@ export function orderRequest(ingredients: IdList) {
   return fetch(`${BASE_URL}/orders`, {
     method: "POST",
     headers: {
+      authorization: getCookie("accessToken"),
       "Content-Type": "application/json",
-    },
+    } as HeadersInit,
     body: JSON.stringify({
       ingredients: ingredients,
     }),
@@ -169,4 +172,24 @@ export function RegisterRequest(data: TRegisterData) {
       if (res?.success) return res;
       return Promise.reject(res);
     });
+}
+type TRequest = {
+  url: string;
+  options?: RequestInit;
+};
+
+export async function request<T>({ url, options }: TRequest): Promise<T> {
+  const res = await fetch(url, options);
+  return checkReponse(res);
+}
+export function OrderByIDRequest(number: string): Promise<TorderByID> {
+  return request({
+    url: `${BASE_URL}/orders/${number}`,
+    options: {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    },
+  });
 }

@@ -8,11 +8,7 @@ export const BurgerStack = (props: BurgerStackProps) => {
     <>
       {itemList.map((ingredient, i) => {
         return (
-          <StackItem
-            ingredient={ingredient}
-            idx={i}
-            key={ingredient.uniqid}
-          />
+          <StackItem ingredient={ingredient} idx={i} key={ingredient.uniqid} />
         );
       })}
     </>

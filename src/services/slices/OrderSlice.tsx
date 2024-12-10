@@ -3,8 +3,9 @@ import {
   OrderDetailsType,
   IdList,
   ExpectedStructureOrder,
+  TOrder,
 } from "../../utils/Types";
-import { orderRequest } from "../../utils/normaAPI";
+import { orderRequest, OrderByIDRequest } from "../../utils/normaAPI";
 import { RootState } from "../store";
 
 const initialState: OrderDetailsType = {

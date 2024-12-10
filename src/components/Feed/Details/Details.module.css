@@ -1,0 +1,67 @@
+.status {
+  display: block;
+}
+.container {
+  max-width: 840px;
+  margin: 40px auto 0;
+}
+.statusaccent {
+  color: var(--colors-interface-success);
+}
+
+.totalprice {
+  display: flex;
+  justify-content: space-between;
+}
+
+.price {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+.ingredienttitle {
+  flex-grow: 1;
+}
+
+.ingredientcount {
+  flex-shrink: 0;
+}
+
+.ingredientprice {
+  display: flex;
+  align-items: center;
+  float: right;
+  gap: 8px;
+}
+
+.ingredientcontainer {
+  max-height: 312px;
+  overflow-y: auto;
+}
+
+.ingredientlist {
+  display: flex;
+  flex-direction: column;
+  padding: 0 32px 0 0;
+  margin: 0;
+  gap: 16px;
+  list-style-type: none;
+}
+
+.ingredientrow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.ingredientimage {
+  width: 64px;
+  height: 64px;
+  border: 2px solid var(--colors-interface-accent);
+  border-radius: 50%;
+  background-color: var(--background-alt);
+  object-fit: contain;
+  box-sizing: border-box;
+  padding: 4px 0;
+}

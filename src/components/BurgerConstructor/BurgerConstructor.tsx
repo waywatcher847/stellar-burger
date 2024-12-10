@@ -21,6 +21,7 @@ import {
   DROP_TOTALPRICE,
   ADD_INGREDIENT,
 } from "../../services/slices/ConstructorSlice";
+
 export const BurgerConstructor = () => {
   const { bun, ingredients, totalPrice } = useSelector(
     (store) => store.burgerConstrucor,
@@ -84,7 +85,7 @@ export const BurgerConstructor = () => {
       dispatch(DROP_TOTALPRICE());
       closeModal();
     }
-  }
+  };
   return (
     <section className={styles.section}>
       <div className={styles.burgerWrapper} ref={dropTarget}>
@@ -128,10 +129,7 @@ export const BurgerConstructor = () => {
         >
           Оформить заказ
           {isModalOpen && (
-            <Modal
-              open={isModalOpen}
-              onClose={onClose}
-            >
+            <Modal open={isModalOpen} onClose={onClose}>
               <OrderDetails />
             </Modal>
           )}
