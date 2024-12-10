@@ -184,3 +184,17 @@ export type TLoginData = {
 };
 
 export type TUserResponse = TServerResponse<{ user: TUser }>;
+
+export type TOrder = {
+  _id: "";
+  status: string;
+  name: string;
+  number: number;
+  createdAt: string;
+  updatedAt: string;
+  ingredients: string[];
+};
+export type TorderByID = TServerResponse<{
+  success: boolean;
+  orders: TOrder[];
+}>;

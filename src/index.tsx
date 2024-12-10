@@ -3,11 +3,12 @@ import "./index.css";
 import App from "./components/App/App";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-import store from "./services/store";
+import { store } from "./services/store";
 import * as ReactDOMClient from "react-dom/client";
 
 const container = document.getElementById("root") as HTMLElement;
 const root = ReactDOMClient.createRoot(container!);
+window.history.replaceState({}, "");
 
 root.render(
   <React.StrictMode>

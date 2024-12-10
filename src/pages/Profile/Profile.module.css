@@ -28,3 +28,10 @@
 .button:hover {
   cursor: pointer;
 }
+
+.orderContainer {
+  width: 100%;
+  max-width: 880px;
+  max-height: 80vh;
+  overflow-y: auto;
+}

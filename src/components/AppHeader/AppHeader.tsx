@@ -11,6 +11,9 @@ import { useDispatch, useSelector } from "../../services/store";
 import { useEffect } from "react";
 import { fetchUser } from "../../services/slices/authUserSlice";
 import { setCookie, getCookie } from "../../utils/cookie";
+
+import { useMatch } from "react-router-dom";
+
 export const AppHeader = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);

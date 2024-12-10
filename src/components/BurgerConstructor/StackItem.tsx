@@ -33,7 +33,7 @@ export const StackItem = (props: StackItemProps) => {
         handlerId: monitor.getHandlerId(),
       };
     },
-    drop: (item: {idx: number}, monitor: DropTargetMonitor) => {
+    drop: (item: { idx: number }, monitor: DropTargetMonitor) => {
       if (!ingredientRef.current) {
         return;
       }
