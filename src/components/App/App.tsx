@@ -2,6 +2,7 @@ import MainPage from "../../pages/Main/Main";
 import styles from "./App.module.css";
 import { useState, useEffect } from "react";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import { ProfileOrdersPage } from "../../pages/Profile/ProfileOrdersPage";
 import { ProfilePage } from "../../pages/Profile/ProfilePage";
 import { LoginPage } from "../../pages/Login/Login";
 import { RegisterPage } from "../../pages/Register/Register";
@@ -15,6 +16,9 @@ import { ProtectedRoute } from "../Route/ProtectedRoute";
 import { Modal } from "../Modal/Modal";
 import { useModal } from "../../hooks/useModal";
 import { IngredientDetails } from "../IngredientDetails/IngredientDetails";
+import { OrderFeedPage } from "../../pages/Feed/Feed";
+import { OrderPage } from "../../pages/Order/Order";
+import { OrderFeedDetails } from "../Feed/Details/Details";
 import { REMOVE_INGREDIENT_INFO } from "../../services/slices/CurrentIngredientSlice";
 
 export const App = () => {
@@ -23,6 +27,10 @@ export const App = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const background = location.state?.background;
+  const background_order = location.state?.background_order;
+  const order = location.state && location.state.order;
+  const items = location.state && location.state.items;
+  const price = location.state && location.state.price;
 
   useEffect(() => {
     dispatch(fetchIngredients());
@@ -31,9 +39,18 @@ export const App = () => {
   return (
     <div>
       <AppHeader />
-      <Routes location={background || location}>
+      <Routes location={background || background_order || location}>
         <Route path="/" element={<MainPage />} />
         <Route path="/*" element={<NotFoundPage />} />
+        <Route path={"feed/:number"} element={<OrderPage />} />
+        <Route
+          path={"profile/orders/:number"}
+          element={
+            <ProtectedRoute checkLoggedIn>
+              <OrderPage />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/register"
           element={
@@ -78,11 +95,11 @@ export const App = () => {
           path="/profile/orders"
           element={
             <ProtectedRoute checkLoggedIn>
-              <ProfilePage />
+              <ProfileOrdersPage />
             </ProtectedRoute>
           }
         />
-        <Route path="/ingredients/:id" element={<IngredientDetails />} />
+        <Route path="/feed" element={<OrderFeedPage />} />
       </Routes>
       {background && (
         <Routes>
@@ -99,6 +116,39 @@ export const App = () => {
                 }}
               >
                 <IngredientDetails />
+              </Modal>
+            }
+          />
+        </Routes>
+      )}
+
+      {background_order && (
+        <Routes>
+          <Route
+            path={"profile/orders/:number"}
+            element={
+              <Modal
+                open={background_order}
+                onClose={() => {
+                  navigate(-1);
+                }}
+                title={`#${order.number}`}
+              >
+                <OrderFeedDetails order={order} items={items} price={price} />
+              </Modal>
+            }
+          />
+          <Route
+            path={"/feed/:number"}
+            element={
+              <Modal
+                open={background_order}
+                onClose={() => {
+                  navigate(-1);
+                }}
+                title={`#${order.number}`}
+              >
+                <OrderFeedDetails order={order} items={items} price={price} />
               </Modal>
             }
           />
