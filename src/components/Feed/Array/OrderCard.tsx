@@ -21,18 +21,21 @@ const OrderCard = ({ order, ingredients }: TOrderCardProps) => {
 
   const nonUniqueitems = order.ingredients.reduce((acc, order) => {
     const item = ingredients.find(
-      (ingredient) => ingredient.item._id === order,
+      (ingredient) => ingredient.item._id === order
     );
+
     if (!item) return acc;
+
     acc.push(item);
 
     return acc;
   }, [] as TIngredient[]);
 
-  const items = nonUniqueitems.map((ingredient) => ({
-    uniqid: uniqid(),
+  const items = nonUniqueitems.map((ingredient, index ) => ({
+    uniqid: `${index}`,
     item: ingredient.item,
-  }));
+  })
+  )
 
   const status = useStatusOrder(order);
 
@@ -45,16 +48,16 @@ const OrderCard = ({ order, ingredients }: TOrderCardProps) => {
       state={{ background_order: location, order, items, price }}
     >
       <div className={styles.orderid}>
-        <p className="text_type_digits-default">{`#${order.number}`}</p>
+        <p className="text text_type_digits-default">{`#${order.number}`}</p>
         <FormattedDate
           date={new Date(order.createdAt)}
-          className="text_type_main-small text_color_inactive"
+          className="text text_type_main-small text_color_inactive"
         />
       </div>
       <div>
-        <p className="text_type_main-medium">{order.name}</p>
+        <p className="text text_type_main-medium">{order.name}</p>
         <p
-          className={`text_type_main-default ${styles.status} ${
+          className={`text text_type_main-default ${styles.status} ${
             status === "Выполнен" && styles.statusaccent
           }`}
         >
@@ -64,7 +67,7 @@ const OrderCard = ({ order, ingredients }: TOrderCardProps) => {
       <div className={styles.ingredients}>
         <ItemList order={order._id} items={items} />
         <div className={styles.price}>
-          <p className="text_type_digits-default">{price}</p>
+          <p className="text text_type_digits-default">{price}</p>
           <CurrencyIcon type="primary" />
         </div>
       </div>

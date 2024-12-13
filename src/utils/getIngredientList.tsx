@@ -7,7 +7,7 @@ export function transformIngredients(
   const ingredients: IngredientList = expectedStructure.data;
   const ingredientCardPropsList: UniqueItem[] = ingredients.map(
     (ingredient, index) => ({
-      uniqid: uniqid(),
+      uniqid: '',
       item: ingredient,
     }),
   );

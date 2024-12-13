@@ -9,9 +9,10 @@ type TIngredientProps = {
 
 const Ingredient = ({ ingredient }: TIngredientProps) => {
   return (
-    <div>
+    <>
       {ingredient && (
-        <div>
+        <>
+        <div className={styles.ingredientprice}>
           <img
             src={ingredient.item.image_mobile}
             alt={ingredient.item.name}
@@ -20,6 +21,7 @@ const Ingredient = ({ ingredient }: TIngredientProps) => {
           <p className={`text text_type_main-default ${styles.ingredientitle}`}>
             {ingredient.item.name}
           </p>
+          </div>
           <div className={styles.ingredientprice}>
             <p
               className={`text text_type_digits-default ${styles.ingredientcount}`}
@@ -28,9 +30,9 @@ const Ingredient = ({ ingredient }: TIngredientProps) => {
             </p>
             <CurrencyIcon type="primary" />
           </div>
-        </div>
+        </>
       )}
-    </div>
+    </>
   );
 };
 
